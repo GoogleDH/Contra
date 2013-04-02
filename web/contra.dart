@@ -16,8 +16,8 @@ part 'source/Robot.dart';
 part 'source/RobotManager.dart';
 part 'source/Bullet.dart';
 part 'source/BulletManager.dart';
-part 'source/Window.dart';
-part 'source/Button.dart';
+part 'source/DisplayWindow.dart';
+part 'source/Statics.dart';
 
 ResourceManager resourceManager;
 RenderLoop renderLoop;
@@ -30,12 +30,15 @@ void main() {
   renderLoop.addStage(stage);
   
   resourceManager = new ResourceManager();
-  resourceManager.addBitmapData("bulletLeft", "images/bulletLeft.png");
-  resourceManager.addBitmapData("bulletRight", "images/bulletRight.png");
-  resourceManager.addBitmapData("walk3", "images/walk3.png");
+  resourceManager.addBitmapData("background", "images/background.png");
+  resourceManager.addBitmapData("tiledirt", "images/tiledirt.png");
+  resourceManager.addBitmapData("tileocean", "images/tileocean.png");
+  resourceManager.addBitmapData("bulletleft", "images/bulletleft.png");
+  resourceManager.addBitmapData("bulletright", "images/bulletright.png");
+  
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
-    Game game = new Game();
+    Game game = new Game(juggler);
     game.start();
     stage.addChild(game);
   }).catchError((error){

@@ -7,11 +7,11 @@ class Robot extends Object implements Animatable {
   
   int type;
   
-  Robot(int type, double x, double y) {
+  Robot(int type, int x, int y) {
     // Set speed according to type
     this.type = type;
-    this.x = x;
-    this.y = y;
+    this.x = x.toDouble();
+    this.y = y.toDouble();
     // this.speedX = 1;
     // this.speedY = 10;
   }

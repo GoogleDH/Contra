@@ -1,4 +1,3 @@
-// 碰撞检测
 part of contra;
 
 class Collision {

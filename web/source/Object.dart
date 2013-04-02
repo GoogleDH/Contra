@@ -6,10 +6,10 @@ abstract class Object extends Sprite {
   double y;
   
   // relative position to window;
-  int rx;
-  int ry;
+  double rx;
+  double ry;
   
-  int width;
+  int witdh;
   int height;
   
   double speedX;

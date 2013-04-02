@@ -1,7 +1,7 @@
 part of contra;
 
 class Bullet extends Object implements Animatable { 
-  bool fromPlayer; // hostile to player or not
+ bool fromPlayer; // hostile to player or not
   
   int life; //frames before it kills itself
 
@@ -28,9 +28,9 @@ class Bullet extends Object implements Animatable {
       ..initX = x
       ..initY = y;
     if(speedX > 0)
-      bitmap = new Bitmap(Grafix.resourceManager.getBitmapData("bulletRight"));
+      bitmap = new Bitmap(Grafix.resourceManager.getBitmapData("bulletright"));
     else 
-      bitmap = new Bitmap(Grafix.resourceManager.getBitmapData("bulletLeft"));
+      bitmap = new Bitmap(Grafix.resourceManager.getBitmapData("bulletleft"));
     this.addChild(bitmap);
     juggler.add(this);
   }

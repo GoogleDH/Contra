@@ -6,9 +6,9 @@ class BulletManager implements Animatable {
   
   HashSet<Bullet> bullets;
   
-  BulletManager() {
+  BulletManager(Sprite layer) {
+    this.layer = layer;
     bullets = new HashSet<Bullet>();
-    juggler.add(this);
   }
   
   addBullet(bool fromPlayer) {
@@ -49,7 +49,6 @@ class BulletManager implements Animatable {
     bullets.add(bullet);
     layer.addChild(bullet);
     bullets.add(bullet);
-
   }
 }
 
