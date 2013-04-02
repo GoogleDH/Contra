@@ -10,7 +10,7 @@ class Player extends Object implements Animatable {
   int state;
   
   Player() {
-    print("player create");
+    
     playerBitmap = new Bitmap(playerData);
     playerBitmap.pivotX = x = - 100.0;
     playerBitmap.pivotY = y = WorldMap.fixedLeastHeight + 
@@ -48,9 +48,11 @@ class Player extends Object implements Animatable {
     }
     
     if (changed) {
-      playerBitmap.pivotX = x.toInt();
+      playerBitmap.pivotX = (x - Game.displayWindow.x).toInt();
       playerBitmap.pivotY = y.toInt();
     }
+    
+    Game.displayWindow.updateAbosultePos(this);
   }
   
   onLeft() {

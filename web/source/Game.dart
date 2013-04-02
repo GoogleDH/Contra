@@ -47,20 +47,26 @@ class Game extends Sprite {
     started = true; 
       
     displayWindow = new DisplayWindow();
+    print("displayWindow created");
     worldMap = new WorldMap();
+    print("worldMap created.");
     _backgroundLayer.addChild(worldMap);
-    juggler.add(worldMap);
+    
     
     player = new Player();
+    print("player create");
     _gameLayer.addChild(player);
-    juggler.add(player);
-    
+ 
     robotManager = new RobotManager();
-    juggler.add(robotManager);
+    
     bulletManager = new BulletManager(_gameLayer); 
-    juggler.add(bulletManager);
+    
     
     keyboardHandler = new KeyboardHandler(player);
+    juggler.add(worldMap);
+    juggler.add(robotManager);
+    juggler.add(bulletManager);
+    juggler.add(player);
     juggler.add(keyboardHandler);
   }
   

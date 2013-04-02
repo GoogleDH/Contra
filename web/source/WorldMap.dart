@@ -1,26 +1,24 @@
 // World map
 part of contra;
 
-class WorldMap extends Sprite implements Animatable {
+class WorldMap extends Object implements Animatable {
   
   Bitmap skyBitmap;
   Bitmap skyBitmap2;
   double cloudMovingSpeed = 20.0;
   double duration;
-  int height;
-  int width;
-  DisplayWindow displayWindow;
   
-  static int fixedLeastHeight = - Statics.WORLD_HEIGHT + Statics.TILE_SIZE;
+  static double fixedLeastHeight = - Statics.WORLD_HEIGHT + Statics.TILE_SIZE;
   List<int> terrainHeights = new List<int>();
+  List<Bitmap> tileDirts = new List<Bitmap>();
+  List<Bitmap> tileOceans = new List<Bitmap>();
   
   WorldMap() {   
     print("before add assign window.");
-    displayWindow = Game.displayWindow;
+    this.width = 10000;
     print("after add assign window.");
-    width = 10000;
     print("after add assign width.");
-    height = displayWindow.height;
+    this.height = Statics.BACKGROUND_HEIGHT;
     print("before add skybitmap");
     skyBitmap = new Bitmap(Grafix.resourceManager.getBitmapData("background"));
     skyBitmap2 = new Bitmap(Grafix.resourceManager.getBitmapData("background"));
@@ -29,17 +27,19 @@ class WorldMap extends Sprite implements Animatable {
     addChild(skyBitmap2);
 
     // background tiles
-    for (int i = 0; i < displayWindow.width / Statics.TILE_SIZE; i++) {
+    for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
       Bitmap tileDirt = new Bitmap(Grafix.resourceManager.
                                    getBitmapData("tiledirt"));
       tileDirt.pivotX = - i * Statics.TILE_SIZE;
       tileDirt.pivotY = - (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE);
       addChild(tileDirt);
+      tileDirts.add(tileDirt);
       Bitmap tileOcean = new Bitmap(Grafix.resourceManager.
                                     getBitmapData("tileocean"));
       tileOcean.pivotX = - i * Statics.TILE_SIZE;
       tileOcean.pivotY = - (Statics.BACKGROUND_HEIGHT - 2 * Statics.TILE_SIZE);
       addChild(tileOcean);
+      tileOceans.add(tileOcean);
     }
     duration = 0.0;
   }
@@ -56,6 +56,17 @@ class WorldMap extends Sprite implements Animatable {
         skyBitmap2 = tmp;
       }
       duration = 0.0;
+    }
+    
+    // background tiles
+    double offset = Statics.TILE_SIZE - Game.displayWindow.x + (Game.displayWindow.x / Statics.TILE_SIZE).toInt() * Statics.TILE_SIZE;
+    for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
+      print(i);
+      Bitmap tileDirt = tileDirts.elementAt(i);
+      tileDirt.pivotX = offset;
+      Bitmap tileOcean = tileOceans.elementAt(i);
+      tileOcean.pivotX = offset;
+      offset -= Statics.TILE_SIZE;
     }
     return true;
   }
