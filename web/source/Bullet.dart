@@ -30,9 +30,12 @@ class Bullet extends Object implements Animatable {
       ..duration = duration;
       
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
-    bitmap.pivotX = bitmap.width / 2;
-    bitmap.pivotY = bitmap.height / 2;
-
+    bitmap
+      ..pivotX = bitmap.width / 2
+      ..pivotY = bitmap.height / 2
+      ..scaleX = 0.5
+      ..scaleY = 0.5;
+    
     this.addChild(bitmap);
     juggler.add(this);
   }

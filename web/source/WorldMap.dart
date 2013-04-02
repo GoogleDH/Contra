@@ -11,7 +11,7 @@ class WorldMap extends Sprite implements Animatable {
   int width;
   DisplayWindow displayWindow;
   
-  static int fixedLeastHeight = - Statics.WORLD_HEIGHT + Statics.TILE_SIZE;
+  static int fixedLeastHeight = Statics.WORLD_HEIGHT - Statics.TILE_SIZE;
   List<int> terrainHeights = new List<int>();
   
   WorldMap() {   

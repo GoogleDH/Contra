@@ -5,6 +5,7 @@ class BulletManager implements Animatable {
   Sprite layer;
   
   HashSet<Bullet> bullets;
+  DateTime lastFireTimestamp;
   
   BulletManager(Sprite layer) {
     this.layer = layer;
@@ -36,9 +37,21 @@ class BulletManager implements Animatable {
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
   
   playerFired(Player player) {
-    Bullet bullet = new Bullet(player.playerBitmap.pivotX, player.playerBitmap.pivotY,
-        random.nextDouble() * 1000 - 500, random.nextDouble() * 500,
-        -100.0, -1000.0,
+    var now = new DateTime.now();
+    if (lastFireTimestamp != null
+        && now.millisecondsSinceEpoch - lastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL) {
+      return;
+    }
+    lastFireTimestamp = now;
+    
+    var direction = player.speedX >= 0 ? 1 : -1; // TODO
+    Bullet bullet = new Bullet(
+        direction == 1 ? player.x + player.playerBitmap.width : player.x,
+        player.y + player.playerBitmap.height / 3.0,
+        500.0 * direction,
+        200.0,
+        -100.0 * direction,
+        -1000.0,
         false, 100);
     bullets.add(bullet);
     layer.addChild(bullet);
