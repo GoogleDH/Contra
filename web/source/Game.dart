@@ -16,6 +16,7 @@ class Game extends Sprite {
   static BulletManager bulletManager;
   static WorldMap worldMap;
   static DisplayWindow displayWindow;
+  static KeyboardHandler keyboardHandler;
   
   Game(Juggler juggler) {
     started = false;
@@ -59,37 +60,8 @@ class Game extends Sprite {
     bulletManager = new BulletManager(_gameLayer); 
     juggler.add(bulletManager);
     
-    // key board events;
-    html.window.onKeyDown.listen((e) {
-      if (e.keyCode == Statics.KEY_LEFT) {
-        print("left");
-        player.onLeft();
-      } else if (e.keyCode == Statics.KEY_RIGHT) {
-        print("right");
-        player.onRight();
-      } else if (e.keyCode == Statics.KEY_DOWN) {
-        print("crouch");
-        player.onCrouch();
-      } else if (e.keyCode == Statics.KEY_FIRE) {
-        print("fire");
-        player.onFire();
-      } 
-    });
-    
-    html.window.onKeyPress.listen((e) {
-      if (e.keyCode == Statics.KEY_JUMP) {
-        print("jump");
-        player.onJump();
-      } 
-    });
-    
-    html.window.onKeyUp.listen((e) {
-      if (e.keyCode == Statics.KEY_LEFT ||
-          e.keyCode == Statics.KEY_RIGHT ||
-          e.keyCode == Statics.KEY_DOWN) {
-        player.onStand();
-      }
-    });
+    keyboardHandler = new KeyboardHandler(player);
+    juggler.add(keyboardHandler);
   }
   
   _onEnterFrame(EnterFrameEvent event) {
@@ -100,4 +72,5 @@ class Game extends Sprite {
     }
     fpsField.text = 'fps: ${_fpsAverage.round()}';
   }
+  
 }

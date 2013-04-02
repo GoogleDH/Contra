@@ -1,7 +1,7 @@
 library contra;
 
 import 'dart:html' as html;
-import 'dart:math';
+import 'dart:math' as math;
 import 'dart:collection';
 import 'package:stagexl/stagexl.dart';
 
@@ -18,6 +18,7 @@ part 'source/Bullet.dart';
 part 'source/BulletManager.dart';
 part 'source/DisplayWindow.dart';
 part 'source/Statics.dart';
+part 'source/KeyboardHandler.dart';
 
 ResourceManager resourceManager;
 RenderLoop renderLoop;

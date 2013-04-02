@@ -12,16 +12,13 @@ class BulletManager implements Animatable {
   }
   
   addBullet(bool fromPlayer) {
-    Bullet b = new Bullet.byType(fromPlayer);
-    layer.addChild(b);
-    bullets.add(b);
   }
   
   bool advanceTime(num time) {
     HashSet<Bullet> bulletsToRemove = new HashSet<Bullet>();
     for (Bullet bullet in bullets) {
       // bullet hit anyone?
-      if (bullet.fromPlayer) {
+      if (bullet.hostile) {
         
       } else {
         
@@ -36,16 +33,13 @@ class BulletManager implements Animatable {
     bullets.removeAll(bulletsToRemove);
   }
 
-  Random random = new Random(new DateTime.now().millisecondsSinceEpoch);
+  math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
   
-  playerFired(Player player){
-    Bullet bullet = new Bullet.full(
-      //random.nextDouble()*50 + 200,
-      //random.nextDouble()*50 + 200,
-        250.0,250.0,
-      random.nextDouble()*10 - 5,
-      random.nextDouble()*10 - 5,
-      false);
+  playerFired(Player player) {
+    Bullet bullet = new Bullet(player.playerBitmap.pivotX, player.playerBitmap.pivotY,
+        random.nextDouble() * 1000 - 500, random.nextDouble() * 500,
+        -100.0, -1000.0,
+        false, 100);
     bullets.add(bullet);
     layer.addChild(bullet);
     bullets.add(bullet);
