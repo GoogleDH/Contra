@@ -54,7 +54,7 @@ class Bullet extends Object implements Animatable {
   }
   
   bool isDead() {
-    return false;
+    return y >= (Statics.WORLD_HEIGHT - Statics.TILE_SIZE);
   }
 }
 
