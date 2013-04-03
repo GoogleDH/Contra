@@ -154,6 +154,14 @@ class Player extends Object implements Animatable {
       speedY = 0.0;
       y = oldY;
     }
+    
+    for (Robot robot in Game.robotManager.getAllRobots()) {
+      if (this.collision(robot) > 0) {
+        this.setDead();
+        print("player collision with robot");
+        break;
+      }
+    }
 
     current.getBitmap().x = x - Game.displayWindow.x;
     current.getBitmap().y = y;
