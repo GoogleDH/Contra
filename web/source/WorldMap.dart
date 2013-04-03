@@ -15,8 +15,7 @@ class WorldMap extends Object implements Animatable {
 
   WorldMap() {
     print("before add assign window.");
-    this.width = 10000;
-    print("after add assign window.");
+    this.width = 10000.0;
     print("after add assign width.");
     this.height = Statics.BACKGROUND_HEIGHT;
     print("before add skybitmap");
@@ -42,8 +41,42 @@ class WorldMap extends Object implements Animatable {
       tileOceans.add(tileOcean);
     }
     duration = 0.0;
+    this.bricks = new List<Tile>();
+    loadMap();
   }
 
+  Map terrain;
+
+  List<Tile> bricks;
+  
+  void loadMap(){
+    html.HttpRequest.getString('map.json').then((mapAsJson){
+      print(mapAsJson);
+      Map parsedMap = parse(mapAsJson);
+      print(parsedMap["terrain"]["width"]);
+      terrain = parsedMap['terrain'];
+      for(int i = 0 ; i < terrain['width'] ; i++){
+        for(int j = 0 ; j < terrain['height'] ; j++){
+          String c = terrain['tiles'][j][i];
+          switch (c) {
+            case '0': 
+              break;
+            case '1':
+              addBrick_(i, j);
+              break;
+          }
+        }
+      }
+    });
+  }
+  
+  addBrick_(int i, int j){
+    Tile brick = new Tile.brick(i, j);
+    addChild(brick);
+    bricks.add(brick);
+  }
+  
+  
   bool advanceTime(num time) {
     duration += time;
     if (duration > 0.01) {

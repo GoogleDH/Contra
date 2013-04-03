@@ -3,6 +3,7 @@ library contra;
 import 'dart:html' as html;
 import 'dart:math' as math;
 import 'dart:collection';
+import 'dart:json';
 import 'package:stagexl/stagexl.dart';
 
 part 'source/Collision.dart';
@@ -19,6 +20,7 @@ part 'source/BulletManager.dart';
 part 'source/DisplayWindow.dart';
 part 'source/Statics.dart';
 part 'source/KeyboardHandler.dart';
+part 'source/Tile.dart';
 
 ResourceManager resourceManager;
 RenderLoop renderLoop;
@@ -48,7 +50,8 @@ void main() {
   resourceManager.addBitmapData("player_rightrun2", "images/player_rightstand.png");
   resourceManager.addBitmapData("player_rightrun3", "images/player_rightstand.png");
   resourceManager.addBitmapData("robot", "images/chicken.png");
-  
+  resourceManager.addBitmapData("brick", "images/brick.png");
+
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
     Game game = new Game(juggler);

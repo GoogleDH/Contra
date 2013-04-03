@@ -6,7 +6,7 @@ class Bullet extends Object implements Animatable {
   double accelerationX;
   double accelerationY;
 
-  bool dead = false;
+  bool dead_ = false;
 
   int direction;
   bool hostile; // hostile to player or not
@@ -28,9 +28,7 @@ class Bullet extends Object implements Animatable {
       ..accelerationX = accelerationX
       ..accelerationY = -accelerationY
       ..hostile = hostile
-      ..duration = duration
-      ..width = bitmap.width
-      ..height = bitmap.height;
+      ..duration = duration;
     
     if(!hostile && Game.keyboardHandler.isPressingUpKey()) {
       this.speedY -= 500;
@@ -48,6 +46,13 @@ class Bullet extends Object implements Animatable {
     juggler.add(this);
   }
 
+  num get width{
+    return bitmap.width;
+  }
+  num get height{
+    return bitmap.height;
+  }
+  
   bool advanceTime(num time) {
     if (bitmap.scaleX < 0.5) {
       bitmap.scaleX += 0.02;
@@ -81,9 +86,21 @@ class Bullet extends Object implements Animatable {
           break;
         }
       }
+    } 
+    
+    if(Collision.isCollidedWithTerrain(this)){
+      dead = true;
     }
   }
 
+  set dead(bool d){
+    dead_= d;
+    juggler.remove(this);
+  }
+  bool get dead{
+    return dead_;
+  }
+  
   bool isDead() {
     return y >= (Statics.WORLD_HEIGHT - Statics.TILE_SIZE) || dead;
   }
