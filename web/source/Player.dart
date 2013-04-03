@@ -63,8 +63,6 @@ class Player extends Object implements Animatable {
       }
     }
     
-    
-    
     setCurrentAnimation(right_stand);
     
     x = current.getBitmap().x = 100.0;
@@ -94,10 +92,8 @@ class Player extends Object implements Animatable {
     }
     current = animation;
     current.start();
-    width = current.getBitmap().width;
-    height = current.getBitmap().height;
     if (x != null) {
-      current.getBitmap().x = x;
+      current.getBitmap().x = x - Game.displayWindow.x;
     }
     if (y != null) {
       y = math.min(y, WorldMap.fixedLeastHeight - height);
@@ -126,7 +122,7 @@ class Player extends Object implements Animatable {
 
     // udpate y
     Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
-    if(somethingToStandOn == null ) {
+    if (somethingToStandOn == null) {
       print("in the air");
       // we are in the air, update Y according to speedY
       speedY += Statics.SPEED_Y_ACCELERATE;
