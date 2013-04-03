@@ -24,6 +24,7 @@ class Game extends Sprite {
   static DisplayWindow displayWindow;
   static KeyboardHandler keyboardHandler;
   static TouchManager touchManager;
+  static Score score;
 
   Game(Stage stage, Juggler juggler) {
     started = false;
@@ -37,12 +38,11 @@ class Game extends Sprite {
     addChild(_backgroundLayer);
     addChild(_gameLayer);
     addChild(_interfaceLayer);
-    _interfaceLayer.addTo(stage);
 
     // fps
     fpsField = new TextField();
     fpsField.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Black);
-    fpsField.x = 10;
+    fpsField.x = Statics.BACKGROUND_WIDTH - 60;
     fpsField.y = 10;
     _interfaceLayer.addChild(fpsField);
     fpsField.onEnterFrame.listen(_onEnterFrame);
@@ -75,6 +75,7 @@ class Game extends Sprite {
     bulletManager = new BulletManager(_gameLayer);
     keyboardHandler = new KeyboardHandler(player);
     touchManager = new TouchManager();
+    score = new Score();
     
     juggler.add(robotManager);
     juggler.add(birdManager);
