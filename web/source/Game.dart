@@ -1,9 +1,5 @@
 part of contra;
 
-void onTouchBegin(TouchEvent touchEvent) {
-  print("On Touch begin");
-}
-
 class Game extends Sprite {
 
   Sprite _gameLayer;
@@ -26,6 +22,7 @@ class Game extends Sprite {
   static Score score;
   
   static TextField scoreField;
+  static HUDManager hudManager;
 
   Game(Stage stage, Juggler juggler) {
     started = false;
@@ -67,6 +64,7 @@ class Game extends Sprite {
     birdManager = new BirdManager(_gameLayer);
     bulletManager = new BulletManager(_gameLayer);
     keyboardHandler = new KeyboardHandler(player);
+    hudManager = new HUDManager(_interfaceLayer);
     touchManager = new TouchManager();
     
 
