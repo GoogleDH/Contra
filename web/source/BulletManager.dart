@@ -58,8 +58,8 @@ class BulletManager implements Animatable {
 
     Bullet bullet = new Bullet(
         player.direction == Statics.DIRECTION_RIGHT ? player.x + player.width : player.x,
-        player.y + player.height / 3.0,
-        500.0 * player.direction,
+        player.y + player.height * 0.3,
+        500.0 * player.direction + player.speedX,
         200.0,
         -100.0 * player.direction,
         -1000.0,

@@ -41,14 +41,18 @@ class Bullet extends Object implements Animatable {
       ..y = y
       ..pivotX = bitmap.width / 2
       ..pivotY = bitmap.height / 2
-      ..scaleX = 0.5
-      ..scaleY = 0.5;
+      ..scaleX = 0.15
+      ..scaleY = 0.15;
 
     this.addChild(bitmap);
     juggler.add(this);
   }
 
   bool advanceTime(num time) {
+    if (bitmap.scaleX < 0.5) {
+      bitmap.scaleX += 0.02;
+      bitmap.scaleY += 0.02;
+    }
     x += speedX * time;
     y += speedY * time;
     speedX += accelerationX * time;
