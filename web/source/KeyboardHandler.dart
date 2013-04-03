@@ -17,7 +17,7 @@ class KeyboardHandler implements Animatable {
   }
   
   bool advanceTime(num time) {
-    //print(keyCodes);
+    //if (!keyCodes.isEmpty) print(keyCodes);
     player.onStand();
     for (var code in keyCodes) {
       switch (code) {
@@ -26,6 +26,7 @@ class KeyboardHandler implements Animatable {
         case Statics.KEY_LEFT:  player.onLeft();   break;
         case Statics.KEY_DOWN:  player.onCrouch(); break;
         case Statics.KEY_JUMP:  player.onJump();   break;
+        case Statics.KEY_CREATE_ENEMY:  Game.robotManager.createNewRobot();   break;
       }
     }
   }

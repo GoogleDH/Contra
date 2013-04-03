@@ -8,6 +8,7 @@ class Statics {
   static const int KEY_RIGHT = 39;
   static const int KEY_JUMP = 32;
   static const int KEY_FIRE = 70;
+  static const int KEY_CREATE_ENEMY = 74;
   
   static const int TILE_SIZE = 40;
   static const int WORLD_HEIGHT = 480;
