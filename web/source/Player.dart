@@ -167,7 +167,6 @@ class Player extends Object implements Animatable {
     for (Robot robot in Game.robotManager.getAllRobots()) {
       if (this.collision(robot) > 0) {
         hurt();
-//        print("player collision with robot");
         break;
       }
     }
@@ -176,6 +175,13 @@ class Player extends Object implements Animatable {
     current.getBitmap().y = y - borderY * 2;
 
     Game.displayWindow.updateAbosultePos(this);
+    
+    
+    //check if we reached destination point
+    if(Collision.reachedEnd(this)){
+      Game.hudManager.showEnd();
+    }
+    
   }
 
   onLeft() {

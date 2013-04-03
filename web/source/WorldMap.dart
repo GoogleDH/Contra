@@ -12,7 +12,7 @@ class WorldMap extends Object implements Animatable {
   List<int> terrainHeights = new List<int>();
   List<Bitmap> tileDirts = new List<Bitmap>();
   List<Bitmap> tileOceans = new List<Bitmap>();
-
+  
   WorldMap() {
     print("before add assign window.");
     this.width = 10000.0;
@@ -48,6 +48,7 @@ class WorldMap extends Object implements Animatable {
   Map terrain;
 
   List<Tile> bricks;
+  List<Tile> ends = new List<Tile>();
   
   void loadMap(){
     html.HttpRequest.getString('map.json').then((mapAsJson){
@@ -72,10 +73,20 @@ class WorldMap extends Object implements Animatable {
               break;
             case '3':
               addTransparentBrick_(i, j);
+              break;
+            case '4':
+              addDestinationTile(i, j);
+              break;
           }
         }
       }
     });
+  }
+  
+  addDestinationTile(int i, int j) {
+    Tile brick = new Tile.transparentBrick(i, j);
+    addChild(brick);
+    ends.add(brick);
   }
   
   createRobot_(int i, int j) {

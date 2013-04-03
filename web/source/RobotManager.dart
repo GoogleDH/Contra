@@ -30,10 +30,14 @@ class RobotManager implements Animatable {
         robotsToRemove.add(robot);
         robot.Bleed(() {
           try{
-          layer.removeChild(robot);
-          robot.destroy();
+            layer.removeChild(robot);
           }catch(e){
-            print(e);
+            // ignore
+          }
+          try {
+            robot.destroy();
+          } catch (e) {
+            // ignore
           }
         });
       }

@@ -66,5 +66,17 @@ class HUDManager {
       tf.textColor = Color.Green;
     }
   }
+  
+  showEnd(){
+    print("YOU WIN!");
+    TextField t = new TextField();
+    t.x = 200;
+    t.y = 200;
+    t.textColor = Color.White;
+    t.text = "YOU WIN!";
+    layer.addChild(t);
+    
+  }
+  
 }
 
