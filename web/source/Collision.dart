@@ -32,5 +32,18 @@ class Collision {
     }
     return null;
   }
+  
+  static bool reachedEnd(Player player) {
+    List<Tile> bricks = Game.worldMap.ends;
+    if(bricks == null) return false;
+    for(Tile o in bricks){
+      int c = player.collision(o);
+      if(c > 0){
+//        print("Collided! $c : "+ obj.toString()+ " with " + o.toString() + " oldX = " + oldX.toString() + " oldY = " + oldY.toString());
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
