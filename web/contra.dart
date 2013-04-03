@@ -33,6 +33,13 @@ void main() {
   renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
 
+  if (Multitouch.supportsTouchEvents) {
+    print("Oh touch screen is supported.");
+    Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
+  } else {
+    html.window.alert('''No touch screen detected!\n\nIf this device has a touch screen, please send a bug report to the StageXL issue tracker on github.''');
+  }
+ 
   resourceManager = new ResourceManager();
   Grafix.addResource(resourceManager);
   

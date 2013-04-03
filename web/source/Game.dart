@@ -1,5 +1,9 @@
 part of contra;
 
+void onTouchBegin(TouchEvent touchEvent) {
+  print("On Touch begin");
+}
+
 class Game extends Sprite {
 
   Sprite _gameLayer;
@@ -42,6 +46,8 @@ class Game extends Sprite {
     _interfaceLayer.addChild(fpsField);
     fpsField.onEnterFrame.listen(_onEnterFrame);
   }
+  
+  
 
   start() {
     print("start");
@@ -79,7 +85,7 @@ class Game extends Sprite {
       Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
       GlassPlate glass = new GlassPlate(Statics.BACKGROUND_WIDTH, Statics.BACKGROUND_HEIGHT);
       glass.addTo(stage);
-      glass.addEventListener(TouchEvent.TOUCH_BEGIN, touchManager.onTouchBegin);
+      glass.addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
       glass.addEventListener(TouchEvent.TOUCH_END, touchManager.onTouchEnd);
       glass.addEventListener(TouchEvent.TOUCH_CANCEL, touchManager.onTouchCancel);
       glass.addEventListener(TouchEvent.TOUCH_MOVE, touchManager.onTouchMove);
