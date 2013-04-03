@@ -40,7 +40,7 @@ class Robot extends Object implements Animatable {
     //speedX += accelerationX * time;
     //speedY += accelerationY * time;
 
-    bitmap.x = x;
+    bitmap.x = x - Game.displayWindow.x;
     bitmap.y = y;
     
     if(random.nextDouble() > 0.97) {
