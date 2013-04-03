@@ -46,4 +46,7 @@ class KeyboardHandler implements Animatable {
   bool isPressingUpKey() {
     return keyCodes.contains(Statics.KEY_UP);
   }
+  bool isPressingDownKey() {
+    return keyCodes.contains(Statics.KEY_DOWN);
+  }
 }

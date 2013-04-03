@@ -35,7 +35,8 @@ class RobotManager implements Animatable {
     return robots;
   }
 
-  createNewRobot() {
+  // absolute x, y
+  createNewRobot(double x, double y) {
     var now = new DateTime.now();
     if (lastCreateTimestamp != null
         && now.millisecondsSinceEpoch - lastCreateTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL) {
@@ -44,7 +45,7 @@ class RobotManager implements Animatable {
     lastCreateTimestamp = now;
 
     print("create robot");
-    Robot robot = new Robot(0,400.0,400.0);
+    Robot robot = new Robot(0, x, y);
     robots.add(robot);
     layer.addChild(robot);
   }
