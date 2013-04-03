@@ -84,10 +84,11 @@ class Player extends Object implements Animatable {
     }
 
     // udpate y
-    speedY += Statics.SPEED_Y_ACCELERATE;
     Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
     if(somethingToStandOn == null ) {
+      print("in the air");
       // we are in the air, update Y according to speedY
+      speedY += Statics.SPEED_Y_ACCELERATE;
       y += speedY;
       if(y > WorldMap.fixedLeastHeight - height){
         speedY = 0.0;
@@ -104,24 +105,22 @@ class Player extends Object implements Animatable {
         y += speedY;
       }
     } 
-
-    Game.displayWindow.updateAbosultePos(this);
-    int collision = Collision.isCollidedWithTerrain(this);
+    
+    int collision = Collision.isCollidedWithTerrain(this, oldX, oldY);
     if(collision == 1 || collision == 3){
       //collided on x, reset x
       x = oldX;
     }
     if(collision >= 2){
       // prevent from going into wall, in x and y direction
-      if(oldY < y){
-        speedY = 0.0;
-      }
+      speedY = 0.0;
       y = oldY;
     }
 
     current.getBitmap().x = x - Game.displayWindow.x;
     current.getBitmap().y = y;
 
+    Game.displayWindow.updateAbosultePos(this);
   }
 
   onLeft() {

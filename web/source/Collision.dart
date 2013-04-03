@@ -7,13 +7,13 @@ class Collision {
   
   
   //also need "current" position, to calculate the direction having collision
-  static int isCollidedWithTerrain(Object obj){
+  static int isCollidedWithTerrain(Object obj, double oldX, double oldY){
     List<Tile> bricks = Game.worldMap.bricks;
     if(bricks == null) return 0;
     for(Tile o in bricks){
-      int result = o.collision(obj); 
+      int result = obj.collisionWithDirection(o, oldX, oldY); 
       if(result > 0){
-        print("Collided! $result : "+ obj.toString()+ " with " + o.toString());
+        print("Collided! $result : "+ obj.toString()+ " with " + o.toString() + " oldX = " + oldX.toString() + " oldY = " + oldY.toString());
         return result;
       }
     }

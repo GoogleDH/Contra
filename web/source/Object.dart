@@ -18,17 +18,21 @@ class Object extends Sprite {
   // 1 for collide on x axis only
   // 2 for collide on y axis only
   // 3 for collide on both x and y axises
+  int collisionWithDirection(Object other, double oldX, double oldY) {
+    int xAxis = collisionXY(x, oldY, other) != 0 ? 1 : 0;
+    int yAxis = collisionXY(oldX, y, other) != 0 ? 2 : 0;
+    return xAxis + yAxis;
+  }
+  
   int collision(Object other) {
-    bool collided = x < other.x + other.width
+    return collisionXY(x, y);
+  }
+  
+  int collisionXY(double x, double y, Object other) {
+    return x < other.x + other.width
         && x + width > other.x
         && y < other.y + other.height
-        && y + height > other.y;
-    
-    int xAxis = (x > other.x + other.width
-        || x + width < other.x) ? 0 : 1;
-    int yAxis = (y > other.y + other.height
-        || y + height < other.y) ? 0 : 2;
-    return collided ? xAxis + yAxis : 0;
+        && y + height > other.y ? 1 : 0;
   }
   
   String toString(){
