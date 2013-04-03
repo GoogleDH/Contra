@@ -97,7 +97,7 @@ class Player extends Object implements Animatable {
     width = current.getBitmap().width;
     height = current.getBitmap().height;
     if (x != null) {
-      current.getBitmap().x = x;
+      current.getBitmap().x = x - Game.displayWindow.x;
     }
     if (y != null) {
       y = math.min(y, WorldMap.fixedLeastHeight - height);
@@ -246,12 +246,19 @@ class Player extends Object implements Animatable {
     }
     state = Statics.PLAYER_STATE_CROUCH;
   }
-
+  
   onFire() {
     if (state == Statics.PLAYER_STATE_DEAD) {
       return;
     }
     Game.bulletManager.playerFired(this);
+  }
+
+  onBomb() {
+    if (state == Statics.PLAYER_STATE_DEAD) {
+      return;
+    }
+    Game.bulletManager.playerBombed(this);
   }
 
   setDead() {

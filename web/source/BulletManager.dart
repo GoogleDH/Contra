@@ -5,7 +5,8 @@ class BulletManager implements Animatable {
   Sprite layer;
 
   HashSet<Bullet> bullets;
-  DateTime lastFireTimestamp;
+  DateTime playerLastBombTimestamp;
+  DateTime playerLastFireTimestamp;
 
   BulletManager(Sprite layer) {
     this.layer = layer;
@@ -48,13 +49,34 @@ class BulletManager implements Animatable {
     layer.addChild(bullet);
   }
 
+  
   playerFired(Player player) {
     var now = new DateTime.now();
-    if (lastFireTimestamp != null
-        && now.millisecondsSinceEpoch - lastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL) {
+    if (playerLastFireTimestamp != null
+        && now.millisecondsSinceEpoch - playerLastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL) {
       return;
     }
-    lastFireTimestamp = now;
+    playerLastFireTimestamp = now;
+
+    Bullet bullet = new Bullet.gun(
+        player.direction == Statics.DIRECTION_RIGHT ? player.x + player.width : player.x,
+        player.y + player.height * 0.2,
+        500.0 * player.direction + player.speedX,
+        0.0,
+        -10.0 * player.direction,
+        -0.0,
+        false, 100);
+    bullets.add(bullet);
+    layer.addChild(bullet);
+    
+  }
+  playerBombed(Player player) {
+    var now = new DateTime.now();
+    if (playerLastBombTimestamp != null
+        && now.millisecondsSinceEpoch - playerLastBombTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*10) {
+      return;
+    }
+    playerLastBombTimestamp = now;
 
     Bullet bullet = new Bullet(
         player.direction == Statics.DIRECTION_RIGHT ? player.x + player.width : player.x,
