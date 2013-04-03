@@ -2,21 +2,20 @@
 part of contra;
 
 class WorldMap extends Object implements Animatable {
-  
+
   Bitmap skyBitmap;
   Bitmap skyBitmap2;
   double cloudMovingSpeed = 20.0;
   double duration;
-  
+
   static double fixedLeastHeight = Statics.WORLD_HEIGHT - Statics.TILE_SIZE;
   List<int> terrainHeights = new List<int>();
   List<Bitmap> tileDirts = new List<Bitmap>();
   List<Bitmap> tileOceans = new List<Bitmap>();
-  
-  WorldMap() {   
+
+  WorldMap() {
     print("before add assign window.");
-    this.width = 10000;
-    print("after add assign window.");
+    this.width = 10000.0;
     print("after add assign width.");
     this.height = Statics.BACKGROUND_HEIGHT;
     print("before add skybitmap");
@@ -42,13 +41,47 @@ class WorldMap extends Object implements Animatable {
       tileOceans.add(tileOcean);
     }
     duration = 0.0;
+    this.bricks = new List<Tile>();
+    loadMap();
   }
+
+  Map terrain;
+
+  List<Tile> bricks;
+  
+  void loadMap(){
+    html.HttpRequest.getString('map.json').then((mapAsJson){
+      print(mapAsJson);
+      Map parsedMap = parse(mapAsJson);
+      print(parsedMap["terrain"]["width"]);
+      terrain = parsedMap['terrain'];
+      for(int i = 0 ; i < terrain['width'] ; i++){
+        for(int j = 0 ; j < terrain['height'] ; j++){
+          String c = terrain['tiles'][j][i];
+          switch (c) {
+            case '0': 
+              break;
+            case '1':
+              addBrick_(i, j);
+              break;
+          }
+        }
+      }
+    });
+  }
+  
+  addBrick_(int i, int j){
+    Tile brick = new Tile.brick(i, j);
+    addChild(brick);
+    bricks.add(brick);
+  }
+  
   
   bool advanceTime(num time) {
     duration += time;
-    if (duration > 0.2) {
+    if (duration > 0.01) {
       double deltaX = cloudMovingSpeed * duration;
-      skyBitmap.pivotX += deltaX.toInt();
+      skyBitmap.pivotX += deltaX;
       skyBitmap2.pivotX = - skyBitmap.width + skyBitmap.pivotX;
       if (skyBitmap2.pivotX > 0) {
         Bitmap tmp = skyBitmap;
@@ -57,7 +90,7 @@ class WorldMap extends Object implements Animatable {
       }
       duration = 0.0;
     }
-    
+
     // background tiles
     double offset = -Game.displayWindow.x + (Game.displayWindow.x / Statics.TILE_SIZE).toInt() * Statics.TILE_SIZE;
     for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
@@ -69,19 +102,19 @@ class WorldMap extends Object implements Animatable {
     }
     return true;
   }
-  
-  
+
+
   // return the left bound of a object;
   leftBound(Object object) {
-    
+
   }
-  
+
   rightBound(Object object) {
-    
+
   }
-  
+
   downBound(Object object) {
-    
+
   }
 }
 

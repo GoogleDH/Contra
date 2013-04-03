@@ -1,24 +1,37 @@
 part of contra;
 
 class KeyboardHandler implements Animatable {
-  HashSet<int> keyCodes;
+  HashSet<int> keyCodes = new HashSet<int>();
   Player player;
   
   KeyboardHandler(Player player) {
-    this
-      ..player = player
-      ..keyCodes = new HashSet<int>();
+    this.player = player;
+    
     html.window.onKeyDown.listen((e) {
       keyCodes.add(e.keyCode);
     });
+    
     html.window.onKeyUp.listen((e) {
       keyCodes.remove(e.keyCode);
+      switch (e.keyCode) {
+        case Statics.KEY_LEFT:
+        case Statics.KEY_RIGHT:
+        case Statics.KEY_DOWN:
+        case Statics.KEY_JUMP:
+          if (keyCodes.contains(Statics.KEY_LEFT)
+           || keyCodes.contains(Statics.KEY_RIGHT)
+           || keyCodes.contains(Statics.KEY_DOWN)
+           || keyCodes.contains(Statics.KEY_JUMP)) {
+            break;
+          }
+          player.onStand();
+          break;
+      }
     });
+    
   }
   
   bool advanceTime(num time) {
-    //if (!keyCodes.isEmpty) print(keyCodes);
-    player.onStand();
     for (var code in keyCodes) {
       switch (code) {
         case Statics.KEY_FIRE:  player.onFire();   break;
@@ -26,13 +39,11 @@ class KeyboardHandler implements Animatable {
         case Statics.KEY_LEFT:  player.onLeft();   break;
         case Statics.KEY_DOWN:  player.onCrouch(); break;
         case Statics.KEY_JUMP:  player.onJump();   break;
-        case Statics.KEY_CREATE_ENEMY:  Game.robotManager.createNewRobot();   break;
       }
     }
   }
-  
-  bool isPressingUpKey(){
+
+  bool isPressingUpKey() {
     return keyCodes.contains(Statics.KEY_UP);
   }
-  
 }

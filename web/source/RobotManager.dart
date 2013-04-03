@@ -4,16 +4,20 @@ class RobotManager implements Animatable {
   List<Robot> robots;
   Sprite layer;
   DateTime lastCreateTimestamp;
+  math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
 
   RobotManager(Sprite layer) {
     this.layer = layer;
     robots = new List<Robot>();
   }
-  
+
   bool advanceTime(num time) {
+    if(random.nextDouble() > 0.995) {
+     // createNewRobot();
+    }
     destroyDeadRobot();
   }
-  
+
   destroyDeadRobot() {
     HashSet<Robot> robotsToRemove = new HashSet<Robot>();
 
@@ -30,7 +34,7 @@ class RobotManager implements Animatable {
   getAllRobots() {
     return robots;
   }
-  
+
   createNewRobot() {
     var now = new DateTime.now();
     if (lastCreateTimestamp != null
@@ -38,7 +42,7 @@ class RobotManager implements Animatable {
       return;
     }
     lastCreateTimestamp = now;
-    
+
     print("create robot");
     Robot robot = new Robot(0,400.0,400.0);
     robots.add(robot);
