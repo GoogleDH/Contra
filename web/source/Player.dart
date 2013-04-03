@@ -66,6 +66,12 @@ class Player extends Object implements Animatable {
     // update x
     if (state == Statics.PLAYER_STATE_MOVE) {
       x += speedX * time;
+      if (x < 0) {
+        x = 0.0;
+      }
+      if (x > Game.worldMap.width) {
+        x = Game.worldMap.width;
+      }
       changed = true;
     }
     
@@ -86,6 +92,7 @@ class Player extends Object implements Animatable {
     
     if (changed) {
       playerBitmap.x = (x - Game.displayWindow.x).toInt();
+      
       playerBitmap.y = y.toInt();
     }
     
