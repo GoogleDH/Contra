@@ -13,11 +13,15 @@ class Robot extends Object implements Animatable {
   Robot(int type, double x, double y) {
     // Set speed according to type
     this.type = type;
-    this.x = x;
+    this.x = x  + Game.displayWindow.x;
     this.y = y;
     this.speedX = 100.0;
     this.speedY = 0.0;
+    bitmap.x = x - Game.displayWindow.x;
+    bitmap.y = (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE - 80);
     this.addChild(bitmap);
+    
+    
     juggler.add(this);
   }
   
@@ -41,7 +45,6 @@ class Robot extends Object implements Animatable {
     //speedY += accelerationY * time;
 
     bitmap.x = x - Game.displayWindow.x;
-    bitmap.y = y;
     
     if(random.nextDouble() > 0.97) {
       Game.bulletManager.robotFired(this);
