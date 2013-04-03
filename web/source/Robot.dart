@@ -14,7 +14,7 @@ class Robot extends Object implements Animatable {
 
   Robot(int type, double x, double y) {
     // Set speed according to type
-    bitmap.x = x - Game.displayWindow.x;
+    bitmap.x = x + Game.displayWindow.x;
     bitmap.y = (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE - 80);
     this
       ..addChild(bitmap)
