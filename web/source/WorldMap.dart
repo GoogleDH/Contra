@@ -46,9 +46,9 @@ class WorldMap extends Object implements Animatable {
 
   bool advanceTime(num time) {
     duration += time;
-    if (duration > 0.2) {
+    if (duration > 0.01) {
       double deltaX = cloudMovingSpeed * duration;
-      skyBitmap.pivotX += deltaX.toInt();
+      skyBitmap.pivotX += deltaX;
       skyBitmap2.pivotX = - skyBitmap.width + skyBitmap.pivotX;
       if (skyBitmap2.pivotX > 0) {
         Bitmap tmp = skyBitmap;

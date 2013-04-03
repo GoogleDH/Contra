@@ -1,7 +1,7 @@
 part of contra;
 
 class Robot extends Object implements Animatable {
-  Bitmap bitmap = new Bitmap(new BitmapData(40, 80, false, Color.Black));
+  Bitmap bitmap = new Bitmap(Grafix.resourceManager.getBitmapData("robot"));
   
   double speedX;
   double speedY;
@@ -15,13 +15,16 @@ class Robot extends Object implements Animatable {
 
   Robot(int type, double x, double y) {
     // Set speed according to type
-    bitmap.x = x;
-    bitmap.y = (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE - 80);
+    bitmap
+      ..scaleX = 0.5
+      ..scaleY = 0.5
+      ..x = x
+      ..y = WorldMap.fixedLeastHeight - bitmap.height;
     this
       ..addChild(bitmap)
       ..type = type
       ..x = x + Game.displayWindow.x
-      ..y = y
+      ..y = WorldMap.fixedLeastHeight - bitmap.height
       ..speedX = 100.0
       ..speedY = 0.0
       ..width = bitmap.width

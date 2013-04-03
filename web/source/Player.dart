@@ -90,12 +90,12 @@ class Player extends Object implements Animatable {
         speedY == Statics.SPEED_Y_INITIAL) {
       y += speedY * time;
       speedY += Statics.SPEED_Y_ACCELERATE;
-      if (y >= WorldMap.fixedLeastHeight - height) {
-        y = WorldMap.fixedLeastHeight - height;
-        speedY = 0.0;
-        if (state == Statics.PLAYER_STATE_JUMP) {
-          onStand();
-        }
+    }
+    if (y >= WorldMap.fixedLeastHeight - height) {
+      y = WorldMap.fixedLeastHeight - height;
+      speedY = 0.0;
+      if (state == Statics.PLAYER_STATE_JUMP) {
+        onStand();
       }
     }
     

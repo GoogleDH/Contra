@@ -47,6 +47,7 @@ void main() {
   resourceManager.addBitmapData("player_rightrun1", "images/player_rightstand.png");
   resourceManager.addBitmapData("player_rightrun2", "images/player_rightstand.png");
   resourceManager.addBitmapData("player_rightrun3", "images/player_rightstand.png");
+  resourceManager.addBitmapData("robot", "images/chicken.png");
   
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
