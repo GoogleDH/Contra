@@ -70,7 +70,10 @@ class Player extends Object implements Animatable {
     }
     
     // udpate y
-    if (y < WorldMap.fixedLeastHeight - playerBitmap.height ||
+    if (y <= 0) {
+      y = 0.1;
+      speedY = Statics.SPEED_Y_ACCELERATE;
+    } else if (y < WorldMap.fixedLeastHeight - playerBitmap.height ||
         speedY == Statics.SPEED_Y_INITIAL) {
       y += speedY * time;
       changed = true;

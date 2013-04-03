@@ -57,7 +57,7 @@ class BulletManager implements Animatable {
     lastFireTimestamp = now;
 
     Bullet bullet = new Bullet(
-        player.direction == Statics.DIRECTION_LEFT ? player.x + player.playerBitmap.width : player.x,
+        player.direction == Statics.DIRECTION_RIGHT ? player.x + player.playerBitmap.width : player.x,
         player.y + player.playerBitmap.height / 3.0,
         500.0 * player.direction,
         200.0,
