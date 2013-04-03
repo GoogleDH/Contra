@@ -13,17 +13,18 @@ class Robot extends Object implements Animatable {
 
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
 
+  // absolute x and y
   Robot(int type, double x, double y) {
     // Set speed according to type
     bitmap
       ..scaleX = 0.5
       ..scaleY = 0.5
-      ..x = x
+      ..x = x - Game.displayWindow.x
       ..y = WorldMap.fixedLeastHeight - bitmap.height;
     this
       ..addChild(bitmap)
       ..type = type
-      ..x = x + Game.displayWindow.x
+      ..x = x
       ..y = WorldMap.fixedLeastHeight - bitmap.height
       ..speedX = 100.0
       ..speedY = 0.0

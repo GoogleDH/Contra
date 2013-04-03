@@ -33,6 +33,9 @@ class Bullet extends Object implements Animatable {
     if(!hostile && Game.keyboardHandler.isPressingUpKey()) {
       this.speedY -= 500.0;
     }
+    if(!hostile && Game.keyboardHandler.isPressingDownKey()) {
+      this.speedY += 300.0;
+    }
 
     bitmap
       ..x = x - Game.displayWindow.x
