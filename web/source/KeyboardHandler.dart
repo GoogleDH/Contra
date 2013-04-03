@@ -20,7 +20,7 @@ class KeyboardHandler implements Animatable {
         case Statics.KEY_JUMP:
           if (keyCodes.contains(Statics.KEY_LEFT)
            || keyCodes.contains(Statics.KEY_RIGHT)
-           || keyCodes.contains(Statics.KEY_DOWN)
+           //|| keyCodes.contains(Statics.KEY_DOWN)
            || keyCodes.contains(Statics.KEY_JUMP)) {
             break;
           }

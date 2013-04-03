@@ -24,8 +24,14 @@ class Bullet extends Object implements Animatable {
     type = 0;// bomb
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
+    bitmap
+      ..x = x - Game.displayWindow.x
+      ..y = y
+      ..scaleX = 0.15
+      ..scaleY = 0.15;
+    
     this
-      ..x = x
+      ..x = x - (speedX >= 0 ? 0 : bitmap.width)
       ..y = y
       ..speedX = speedX
       ..speedY = -speedY
@@ -41,11 +47,6 @@ class Bullet extends Object implements Animatable {
       this.speedY += 300.0;
     }
 
-    bitmap
-      ..x = x - Game.displayWindow.x
-      ..y = y
-      ..scaleX = 0.15
-      ..scaleY = 0.15;
 
     this.addChild(bitmap);
     juggler.add(this);
@@ -58,8 +59,14 @@ class Bullet extends Object implements Animatable {
     type = 1;//gun
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bullet1Right" : "bullet1Left"));
+    bitmap
+      ..x = x - Game.displayWindow.x
+      ..y = y
+      ..scaleX = 2.0
+      ..scaleY = 2.0;
+    
     this
-      ..x = x
+      ..x = x - (speedX >= 0 ? 0 : bitmap.width)
       ..y = y
       ..speedX = speedX
       ..speedY = -speedY
@@ -75,11 +82,6 @@ class Bullet extends Object implements Animatable {
       this.speedY += 300.0;
     }
 
-    bitmap
-      ..x = x - Game.displayWindow.x
-      ..y = y
-      ..scaleX = 2.0
-      ..scaleY = 2.0;
 
     this.addChild(bitmap);
     juggler.add(this);

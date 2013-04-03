@@ -241,6 +241,7 @@ class Player extends Object implements Animatable {
   }
 
   onCrouch() {
+    /*
     if (state == Statics.PLAYER_STATE_DEAD) {
       return;
     }
@@ -250,6 +251,7 @@ class Player extends Object implements Animatable {
       setCurrentAnimation(right_crouch);
     }
     state = Statics.PLAYER_STATE_CROUCH;
+    */
   }
   
   onFire() {
