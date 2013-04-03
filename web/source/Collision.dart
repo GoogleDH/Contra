@@ -15,6 +15,7 @@ class Collision {
         return true;
       }
     }
+    print("Not Collided!"+ obj.toString());
     return false;
   }
   

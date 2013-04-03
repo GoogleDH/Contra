@@ -37,13 +37,18 @@ class Bullet extends Object implements Animatable {
     bitmap
       ..x = x - Game.displayWindow.x
       ..y = y
-      ..pivotX = bitmap.width / 2
-      ..pivotY = bitmap.height / 2
       ..scaleX = 0.15
       ..scaleY = 0.15;
 
     this.addChild(bitmap);
     juggler.add(this);
+  }
+
+  num get pivotX{
+    return bitmap.pivotX;
+  }
+  num get pivotY{
+    return bitmap.pivotY;
   }
 
   num get width{
