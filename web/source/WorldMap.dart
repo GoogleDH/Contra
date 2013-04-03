@@ -51,7 +51,7 @@ class WorldMap extends Object implements Animatable {
   
   void loadMap(){
     html.HttpRequest.getString('map.json').then((mapAsJson){
-      print(mapAsJson);
+//      print(mapAsJson);
       Map parsedMap = parse(mapAsJson);
       print(parsedMap["terrain"]["width"]);
       terrain = parsedMap['terrain'];

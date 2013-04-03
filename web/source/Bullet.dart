@@ -165,6 +165,15 @@ class Bullet extends Object implements Animatable {
           break;
         }
       }
+      
+      for (Bird bird in Game.birdManager.getAllBirds()) {
+        if (this.collision(bird) > 0) {
+          bird.setDead();
+          this.dead = true;
+          print("one robot killed.");
+          break;
+        }
+      }
     } 
     
     if(Collision.isCollidedWithTerrain(this, oldX, oldY) > 0){

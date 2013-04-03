@@ -163,7 +163,7 @@ class Player extends Object implements Animatable {
     for (Robot robot in Game.robotManager.getAllRobots()) {
       if (this.collision(robot) > 0) {
         this.setDead();
-        print("player collision with robot");
+//        print("player collision with robot");
         break;
       }
     }
@@ -275,6 +275,7 @@ class Player extends Object implements Animatable {
   }
 
   setDead() {
+    return;
     state = Statics.PLAYER_STATE_DEAD;
     if (direction == Statics.DIRECTION_LEFT) {
       setCurrentAnimation(left_die);

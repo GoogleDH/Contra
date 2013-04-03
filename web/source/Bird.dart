@@ -1,6 +1,6 @@
 part of contra;
 
-class Robot extends Object implements Animatable {
+class Bird extends Object implements Animatable {
   
   Animation left_run;
   Animation right_run;
@@ -16,7 +16,7 @@ class Robot extends Object implements Animatable {
   double max_width = 0.0;
   double max_height = 0.0;
 
-  Robot(double x, double y) {
+  Bird(double x, double y) {
     left_run = new Animation(this);
     right_run = new Animation(this);
     left_bleed = new Animation(this);
@@ -27,10 +27,10 @@ class Robot extends Object implements Animatable {
     left_run.addFrame(new AnimationFrame("robot_leftmove3", 0.2));
     left_run.addFrame(new AnimationFrame("robot_leftmove2", 0.2));
     
-    right_run.addFrame(new AnimationFrame("robot_rightmove1", 0.2));
-    right_run.addFrame(new AnimationFrame("robot_rightmove2", 0.2));
-    right_run.addFrame(new AnimationFrame("robot_rightmove3", 0.2));
-    right_run.addFrame(new AnimationFrame("robot_rightmove2", 0.2));
+    right_run.addFrame(new AnimationFrame("helicopter1", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter2", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter3", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter4", 0.1));
     
     left_bleed.addFrame(new AnimationFrame("robot_leftblood1", 0.1));
     left_bleed.addFrame(new AnimationFrame("robot_leftblood2", 0.1));
@@ -141,6 +141,7 @@ class Robot extends Object implements Animatable {
 
   setDead() {
     this.isDead = true;
+    Game.hudManager.oneBirdKilled();
     Sounds.playSoundEffect("robot_dead");
   }
 }

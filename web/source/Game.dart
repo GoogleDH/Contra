@@ -1,30 +1,27 @@
 part of contra;
 
-void onTouchBegin(TouchEvent touchEvent) {
-  print("On Touch begin");
-}
-
 class Game extends Sprite {
 
   Sprite _gameLayer;
   Sprite _backgroundLayer;
   Sprite _interfaceLayer;
 
-  TextField fpsField;
-  double _fpsAverage = null;
+  
   bool started;
   Juggler juggler;
   Stage stage;
 
   static Player player;
+  static BirdManager birdManager;
   static RobotManager robotManager;
   static BulletManager bulletManager;
   static WorldMap worldMap;
   static DisplayWindow displayWindow;
   static KeyboardHandler keyboardHandler;
   static TouchManager touchManager;
+  
+  static TextField scoreField;
   static HUDManager hudManager;
-  static Game game;
 
   Game(Stage stage, Juggler juggler) {
     started = false;
@@ -38,21 +35,11 @@ class Game extends Sprite {
     addChild(_backgroundLayer);
     addChild(_gameLayer);
     addChild(_interfaceLayer);
-    _interfaceLayer.addTo(stage);
-
-    // fps
-    fpsField = new TextField();
-    fpsField.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Black);
-    fpsField.x = 10;
-    fpsField.y = 10;
-    _interfaceLayer.addChild(fpsField);
-    fpsField.onEnterFrame.listen(_onEnterFrame);
   }
   
   
 
   start() {
-    game = this;
     print("start");
     if (started) {
       return;
@@ -73,12 +60,14 @@ class Game extends Sprite {
     juggler.add(player);
 
     robotManager = new RobotManager(_gameLayer);  
+    birdManager = new BirdManager(_gameLayer);
     bulletManager = new BulletManager(_gameLayer);
     keyboardHandler = new KeyboardHandler(player);
     hudManager = new HUDManager(_interfaceLayer);
     touchManager = new TouchManager();
     
     juggler.add(robotManager);
+    juggler.add(birdManager);
     juggler.add(worldMap);
     juggler.add(robotManager);
     juggler.add(bulletManager);
@@ -89,15 +78,6 @@ class Game extends Sprite {
     Sounds.playBackground();
     print("end sound");
     touchManager.initEventHandler();
-  }
-
-  _onEnterFrame(EnterFrameEvent event) {
-    if (_fpsAverage == null) {
-      _fpsAverage = 1.00 / event.passedTime;
-    } else {
-      _fpsAverage = 0.05 / event.passedTime + 0.95 * _fpsAverage;
-    }
-    fpsField.text = 'fps: ${_fpsAverage.round()}';
   }
 
 }

@@ -47,7 +47,7 @@ class RobotManager implements Animatable {
 
   // absolute x, y
   createNewRobot(double x, double y, int direction) {
-    print("create robot");
+//    print("create robot");
     Robot robot = new Robot(x, y);
     robot.changeDirection(direction);
     robots.add(robot);
