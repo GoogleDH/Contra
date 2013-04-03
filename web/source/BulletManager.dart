@@ -76,6 +76,7 @@ class BulletManager implements Animatable {
         && now.millisecondsSinceEpoch - playerLastBombTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*10) {
       return;
     }
+    Sounds.playSoundEffect("bomb");
     playerLastBombTimestamp = now;
 
     Bullet bullet = new Bullet(

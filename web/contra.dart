@@ -25,27 +25,31 @@ part 'source/TouchManager.dart';
 part 'source/Sounds.dart';
 
 ResourceManager resourceManager;
-RenderLoop renderLoop;
 Stage stage;
-Juggler juggler = renderLoop.juggler;
+Juggler juggler;
 
 void main() {
   stage = new Stage("oneStage", html.query("#oneStage"));
-  renderLoop = new RenderLoop();
+  RenderLoop renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
-
+  juggler = renderLoop.juggler;
+ 
+  
+ 
   resourceManager = new ResourceManager();
   Grafix.addResource(resourceManager);
   Sounds.addResource(resourceManager);
   
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
-    Game game = new Game(stage, juggler);
-    game.start();
+    Game game = new Game(stage, renderLoop.juggler);
     stage.addChild(game);
+    game.start();
   }).catchError((error){
     for(var resource in resourceManager.failedResources) {
       print("Loading resource ${resource.kind} ${resource.name} failed: ${resource.error}");
     }
   });
+  
+  
 }

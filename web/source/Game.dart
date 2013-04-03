@@ -1,5 +1,9 @@
 part of contra;
 
+void onTouchBegin(TouchEvent touchEvent) {
+  print("On Touch begin");
+}
+
 class Game extends Sprite {
 
   Sprite _gameLayer;
@@ -32,6 +36,7 @@ class Game extends Sprite {
     addChild(_backgroundLayer);
     addChild(_gameLayer);
     addChild(_interfaceLayer);
+    _interfaceLayer.addTo(stage);
 
     // fps
     fpsField = new TextField();
@@ -41,6 +46,8 @@ class Game extends Sprite {
     _interfaceLayer.addChild(fpsField);
     fpsField.onEnterFrame.listen(_onEnterFrame);
   }
+  
+  
 
   start() {
     print("start");
@@ -73,22 +80,11 @@ class Game extends Sprite {
     juggler.add(bulletManager);
     juggler.add(player);
     juggler.add(keyboardHandler);
-    if (Multitouch.supportsTouchEvents) {
-      print("Oh touch screen is supported.");
-      Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
-      GlassPlate glass = new GlassPlate(Statics.BACKGROUND_WIDTH, Statics.BACKGROUND_HEIGHT);
-      glass.addTo(stage);
-      glass.addEventListener(TouchEvent.TOUCH_BEGIN, touchManager.onTouchBegin);
-      glass.addEventListener(TouchEvent.TOUCH_END, touchManager.onTouchEnd);
-      glass.addEventListener(TouchEvent.TOUCH_CANCEL, touchManager.onTouchCancel);
-      glass.addEventListener(TouchEvent.TOUCH_MOVE, touchManager.onTouchMove);
-      glass.addEventListener(TouchEvent.TOUCH_OUT, touchManager.onTouchOut);
-      glass.addEventListener(TouchEvent.TOUCH_OVER, touchManager.onTouchOver);
-    }
-    
+   
     print("start sound");
     Sounds.playBackground();
     print("end sound");
+    touchManager.initEventHandler();
   }
 
   _onEnterFrame(EnterFrameEvent event) {

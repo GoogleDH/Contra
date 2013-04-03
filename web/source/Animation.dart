@@ -31,7 +31,7 @@ class Animation {
   addFrame(AnimationFrame frame) {
     frames.add(frame);
   }
-
+  
   update(num time) {
     duration += time;
     if (frames.length == 0) {

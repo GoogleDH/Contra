@@ -2,6 +2,25 @@ part of contra;
 
 class TouchManager {
   
+  void initEventHandler() {
+    if (Multitouch.supportsTouchEvents) {
+      print("Oh touch screen is supported.");
+      Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
+      var glass = new GlassPlate(Statics.BACKGROUND_WIDTH, Statics.BACKGROUND_HEIGHT);
+      glass.addTo(stage);
+
+      glass.addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
+      glass.addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
+      glass.addEventListener(TouchEvent.TOUCH_CANCEL, onTouchCancel);
+      glass.addEventListener(TouchEvent.TOUCH_MOVE, onTouchMove);
+      glass.addEventListener(TouchEvent.TOUCH_OUT, onTouchOut);
+      glass.addEventListener(TouchEvent.TOUCH_OVER, onTouchOver);
+      
+    } else {
+      html.window.alert('''No touch screen detected!\n\nIf this device has a touch screen, please send a bug report to the StageXL issue tracker on github.''');
+    }
+  }
+  
   void onTouchBegin(TouchEvent touchEvent) {
     print("touch begin ${touchEvent.stageX} ${touchEvent.stageY}");
   }

@@ -14,7 +14,7 @@ class Collision {
     for(Tile o in bricks){
       int c = obj.collisionWithDirection(o, oldX, oldY); 
       if(c > 0){
-        print("Collided! $c : "+ obj.toString()+ " with " + o.toString() + " oldX = " + oldX.toString() + " oldY = " + oldY.toString());
+//        print("Collided! $c : "+ obj.toString()+ " with " + o.toString() + " oldX = " + oldX.toString() + " oldY = " + oldY.toString());
         result |= c;
       }
     }

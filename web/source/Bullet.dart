@@ -14,10 +14,14 @@ class Bullet extends Object implements Animatable {
 
   Bitmap bitmap;
 
+  int type;
+  math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
+  
   Bullet(double x, double y,
       double speedX, double speedY,
       double accelerationX, accelerationY,
       bool hostile, num duration) {
+    type = 0;// bomb
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
     this
@@ -51,6 +55,7 @@ class Bullet extends Object implements Animatable {
          double speedX, double speedY,
          double accelerationX, accelerationY,
          bool hostile, num duration) {
+    type = 1;//gun
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bullet1Right" : "bullet1Left"));
     this
@@ -108,6 +113,13 @@ class Bullet extends Object implements Animatable {
     }
     x += speedX * time;
     y += speedY * time;
+    
+    if (type == 1) {
+      y += 5 * random.nextDouble() - 2.5;
+    }
+    
+    
+    
     speedX += accelerationX * time;
     speedY += accelerationY * time;
     if (direction != (speedX >= 0 ? 1 : -1)) {
