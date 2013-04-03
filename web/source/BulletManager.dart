@@ -44,7 +44,7 @@ class BulletManager implements Animatable {
         200.0,
         -100.0 * direction,
         -1000.0,
-        true, 100);
+        true, 5);
     bullets.add(bullet);
     layer.addChild(bullet);
   }
@@ -65,7 +65,7 @@ class BulletManager implements Animatable {
         0.0,
         -10.0 * player.direction,
         -0.0,
-        false, 100);
+        false, 1);
     bullets.add(bullet);
     layer.addChild(bullet);
     

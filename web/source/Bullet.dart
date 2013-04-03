@@ -10,14 +10,14 @@ class Bullet extends Object implements Animatable {
 
   int direction;
   bool hostile; // hostile to player or not
-  int duration; // seconds before it kills itself
+  num duration; // seconds before it kills itself
 
   Bitmap bitmap;
 
   Bullet(double x, double y,
       double speedX, double speedY,
       double accelerationX, accelerationY,
-      bool hostile, int duration) {
+      bool hostile, num duration) {
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
     this
@@ -50,7 +50,7 @@ class Bullet extends Object implements Animatable {
   Bullet.gun(double x, double y,
          double speedX, double speedY,
          double accelerationX, accelerationY,
-         bool hostile, int duration) {
+         bool hostile, num duration) {
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bullet1Right" : "bullet1Left"));
     this
@@ -96,6 +96,10 @@ class Bullet extends Object implements Animatable {
   }
   
   bool advanceTime(num time) {
+    duration -= time;
+    if (duration <= 0) {
+      this.dead = true;
+    }
     var oldX = x;
     var oldY = y;
     if (bitmap.scaleX < 0.5) {
