@@ -25,7 +25,7 @@ class BulletManager implements Animatable {
       if(bullet.isDead()) {
         layer.removeChild(bullet);
         bulletsToRemove.add(bullet);
-        //juggler.remove(bullet);
+        juggler.remove(bullet);
       }
     }
     bullets.removeAll(bulletsToRemove);
