@@ -14,6 +14,9 @@ class Player extends Object implements Animatable {
   Animation right_jump;
 
   Animation current;
+  
+  static const double borderX = 20.0;
+  static const double borderY = 0.0;
 
   int state;
   bool isDead = false;
@@ -65,8 +68,10 @@ class Player extends Object implements Animatable {
     
     setCurrentAnimation(right_stand);
     
-    x = current.getBitmap().x = 100.0;
-    y = current.getBitmap().y = WorldMap.fixedLeastHeight - height;
+    x = 100.0;
+    y = 0.0;
+    current.getBitmap().x = x - borderX;
+    current.getBitmap().y = y - borderY * 2;
   
     speedX = 0.0;
     speedY = 0.0;
@@ -76,11 +81,11 @@ class Player extends Object implements Animatable {
   }
   
   double get width {
-    return max_width;
+    return max_width - borderX * 2;
   }
   
   double get height {
-    return max_height;
+    return max_height - borderY * 2;
   }
 
   setCurrentAnimation(Animation animation) {
@@ -93,11 +98,11 @@ class Player extends Object implements Animatable {
     current = animation;
     current.start();
     if (x != null) {
-      current.getBitmap().x = x - Game.displayWindow.x;
+      current.getBitmap().x = x - Game.displayWindow.x - borderX;
     }
     if (y != null) {
       y = math.min(y, WorldMap.fixedLeastHeight - height);
-      current.getBitmap().y = y;
+      current.getBitmap().y = y - borderY * 2;
     }
     
   }
@@ -163,8 +168,8 @@ class Player extends Object implements Animatable {
       }
     }
 
-    current.getBitmap().x = x - Game.displayWindow.x;
-    current.getBitmap().y = y;
+    current.getBitmap().x = x - Game.displayWindow.x - borderX;
+    current.getBitmap().y = y - borderY * 2;
 
     Game.displayWindow.updateAbosultePos(this);
   }
