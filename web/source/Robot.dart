@@ -91,6 +91,8 @@ class Robot extends Object implements Animatable {
     juggler.remove(this); 
   }
 
+  math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
+
   double shouldTurnAround = 0.0;
 
   bool advanceTime(num time) {
@@ -98,19 +100,13 @@ class Robot extends Object implements Animatable {
     var oldY = y;
     
     
-    //x += speedX * time;
-    //y += speedY * time;
-    //speedX += accelerationX * time;
-    //speedY += accelerationY * time;
-
-    //current.getBitmap().x = x - Game.displayWindow.x;
     current.update(time);
-/*
-    if(random.nextDouble() > 0.97) {
+    
+    if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.97) {
       Game.bulletManager.robotFired(this);
       Sounds.playSoundEffect("robot_fire");
     }
-*/
+    
     Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
     
     // update x
