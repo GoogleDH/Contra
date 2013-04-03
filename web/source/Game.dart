@@ -10,6 +10,7 @@ class Game extends Sprite {
   double _fpsAverage = null;
   bool started;
   Juggler juggler;
+  Stage stage;
 
   static Player player;
   static RobotManager robotManager;
@@ -17,10 +18,12 @@ class Game extends Sprite {
   static WorldMap worldMap;
   static DisplayWindow displayWindow;
   static KeyboardHandler keyboardHandler;
+  static TouchManager touchManager;
 
-  Game(Juggler juggler) {
+  Game(Stage stage, Juggler juggler) {
     started = false;
     this.juggler = juggler;
+    this.stage = stage;
 
     _backgroundLayer = new Sprite();
     _gameLayer = new Sprite();
@@ -59,16 +62,30 @@ class Game extends Sprite {
 
     juggler.add(player);
 
-    robotManager = new RobotManager(_gameLayer);
-    juggler.add(robotManager);
+    robotManager = new RobotManager(_gameLayer);  
     bulletManager = new BulletManager(_gameLayer);
-
     keyboardHandler = new KeyboardHandler(player);
+    touchManager = new TouchManager();
+    
+    juggler.add(robotManager);
     juggler.add(worldMap);
     juggler.add(robotManager);
     juggler.add(bulletManager);
     juggler.add(player);
     juggler.add(keyboardHandler);
+    if (Multitouch.supportsTouchEvents) {
+      print("Oh touch screen is supported.");
+      Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
+      GlassPlate glass = new GlassPlate(Statics.BACKGROUND_WIDTH, Statics.BACKGROUND_HEIGHT);
+      glass.addTo(stage);
+      glass.addEventListener(TouchEvent.TOUCH_BEGIN, touchManager.onTouchBegin);
+      glass.addEventListener(TouchEvent.TOUCH_END, touchManager.onTouchEnd);
+      glass.addEventListener(TouchEvent.TOUCH_CANCEL, touchManager.onTouchCancel);
+      glass.addEventListener(TouchEvent.TOUCH_MOVE, touchManager.onTouchMove);
+      glass.addEventListener(TouchEvent.TOUCH_OUT, touchManager.onTouchOut);
+      glass.addEventListener(TouchEvent.TOUCH_OVER, touchManager.onTouchOver);
+    }
+   
   }
 
   _onEnterFrame(EnterFrameEvent event) {
