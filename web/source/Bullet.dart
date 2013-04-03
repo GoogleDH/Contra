@@ -1,8 +1,6 @@
 part of contra;
 
 class Bullet extends Object implements Animatable {
-  double x;
-  double y;
   double speedX;
   double speedY;
   double accelerationX;
@@ -19,6 +17,8 @@ class Bullet extends Object implements Animatable {
          double speedX, double speedY,
          double accelerationX, accelerationY,
          bool hostile, int duration) {
+    this.direction = speedX >= 0 ? 1 : -1;
+    bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
     this
       ..x = x
       ..y = y
@@ -26,13 +26,13 @@ class Bullet extends Object implements Animatable {
       ..speedY = -speedY
       ..accelerationX = accelerationX
       ..accelerationY = -accelerationY
-      ..direction = speedX >= 0 ? 1 : -1
       ..hostile = hostile
-      ..duration = duration;
+      ..duration = duration
+      ..width = bitmap.width
+      ..height = bitmap.height;
       
-    bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
     bitmap
-      ..x = x
+      ..x = x - Game.displayWindow.x
       ..y = y
       ..pivotX = bitmap.width / 2
       ..pivotY = bitmap.height / 2
@@ -52,7 +52,7 @@ class Bullet extends Object implements Animatable {
       speedX = 0.0;
     
     bitmap.rotation = math.atan(speedY / speedX);
-    bitmap.x = (x - Game.displayWindow.x).toInt();
+    bitmap.x = x - Game.displayWindow.x;
     bitmap.y = y;
     if (hostile) {
       if (this.collision(Game.player)) {

@@ -55,14 +55,13 @@ class BulletManager implements Animatable {
       return;
     }
     lastFireTimestamp = now;
-    
-    var direction = player.speedX >= 0 ? 1 : -1; // TODO
+
     Bullet bullet = new Bullet(
-        direction == 1 ? player.x + player.playerBitmap.width : player.x,
+        player.direction == Statics.DIRECTION_LEFT ? player.x + player.playerBitmap.width : player.x,
         player.y + player.playerBitmap.height / 3.0,
-        500.0 * direction,
+        500.0 * player.direction,
         200.0,
-        -100.0 * direction,
+        -100.0 * player.direction,
         -1000.0,
         false, 100);
     bullets.add(bullet);

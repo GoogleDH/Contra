@@ -3,6 +3,8 @@ part of contra;
 class Robot extends Object implements Animatable {
   Bitmap bitmap = new Bitmap(new BitmapData(40, 80, false, Color.Black));
   
+  double speedX;
+  double speedY;
   static int TYPE_JUMPPING = 0;
   static int TYPE_SHOOTING = 1;
   bool isDead = false;
@@ -12,12 +14,19 @@ class Robot extends Object implements Animatable {
 
   Robot(int type, double x, double y) {
     // Set speed according to type
-    this.type = type;
-    this.x = x;
-    this.y = y;
-    this.speedX = 100.0;
-    this.speedY = 0.0;
-    this.addChild(bitmap);
+    bitmap.x = x - Game.displayWindow.x;
+    bitmap.y = (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE - 80);
+    this
+      ..addChild(bitmap)
+      ..type = type
+      ..x = x  + Game.displayWindow.x
+      ..y = y
+      ..speedX = 100.0
+      ..speedY = 0.0
+      ..width = bitmap.width
+      ..height = bitmap.height;
+    
+    
     juggler.add(this);
   }
   
@@ -41,7 +50,6 @@ class Robot extends Object implements Animatable {
     //speedY += accelerationY * time;
 
     bitmap.x = x - Game.displayWindow.x;
-    bitmap.y = y;
     
     if(random.nextDouble() > 0.97) {
       Game.bulletManager.robotFired(this);
@@ -53,6 +61,11 @@ class Robot extends Object implements Animatable {
     } else if (type == Robot.TYPE_SHOOTING) {
       // shoot
     }
+    
+    
+    // CollisionManager.checkPlayer(this);
+    // CollisionManager.checkRobot(this);
+    
   }
   
   setDead() {

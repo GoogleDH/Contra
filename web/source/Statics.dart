@@ -15,7 +15,7 @@ class Statics {
   static const double WORLD_HEIGHT = 480.0;
   static const double BACKGROUND_WIDTH = 800.0;
   static const double BACKGROUND_HEIGHT = 480.0;
-  static const double SPEED_X = 80.0;
+  static const double SPEED_X = 280.0;
   static const double SPEED_Y_INITIAL = -600.0;
   static const double SPEED_Y_ACCELERATE = 30.0;
   
@@ -23,6 +23,9 @@ class Statics {
   static const int PLAYER_STATE_MOVE = 1;
   static const int PLAYER_STATE_JUMP = 2;
   static const int PLAYER_STATE_CROUCH = 3;
+  
+  static const int DIRECTION_LEFT = -1;
+  static const int DIRECTION_RIGHT = 1;
   
   static const int MIN_FIRE_INTERVAL = 200;
 }
