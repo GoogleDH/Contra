@@ -10,8 +10,7 @@ class Game extends Sprite {
   Sprite _backgroundLayer;
   Sprite _interfaceLayer;
 
-  TextField fpsField;
-  double _fpsAverage = null;
+  
   bool started;
   Juggler juggler;
   Stage stage;
@@ -25,6 +24,8 @@ class Game extends Sprite {
   static KeyboardHandler keyboardHandler;
   static TouchManager touchManager;
   static Score score;
+  
+  static TextField scoreField;
 
   Game(Stage stage, Juggler juggler) {
     started = false;
@@ -38,14 +39,6 @@ class Game extends Sprite {
     addChild(_backgroundLayer);
     addChild(_gameLayer);
     addChild(_interfaceLayer);
-
-    // fps
-    fpsField = new TextField();
-    fpsField.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Black);
-    fpsField.x = Statics.BACKGROUND_WIDTH - 60;
-    fpsField.y = 10;
-    _interfaceLayer.addChild(fpsField);
-    fpsField.onEnterFrame.listen(_onEnterFrame);
   }
   
   
@@ -75,7 +68,16 @@ class Game extends Sprite {
     bulletManager = new BulletManager(_gameLayer);
     keyboardHandler = new KeyboardHandler(player);
     touchManager = new TouchManager();
-    score = new Score();
+    
+
+    scoreField = new TextField();
+    scoreField.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Black);
+    scoreField.x = Statics.BACKGROUND_WIDTH - 60;
+    scoreField.y = 10;
+    _interfaceLayer.addChild(scoreField);
+    scoreField.text = score.score.toString();
+    
+    score = new Score(scoreField);
     
     juggler.add(robotManager);
     juggler.add(birdManager);
@@ -89,15 +91,6 @@ class Game extends Sprite {
     Sounds.playBackground();
     print("end sound");
     touchManager.initEventHandler();
-  }
-
-  _onEnterFrame(EnterFrameEvent event) {
-    if (_fpsAverage == null) {
-      _fpsAverage = 1.00 / event.passedTime;
-    } else {
-      _fpsAverage = 0.05 / event.passedTime + 0.95 * _fpsAverage;
-    }
-    fpsField.text = 'fps: ${_fpsAverage.round()}';
   }
 
 }
