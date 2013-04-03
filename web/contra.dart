@@ -25,21 +25,16 @@ part 'source/TouchManager.dart';
 part 'source/Sounds.dart';
 
 ResourceManager resourceManager;
-RenderLoop renderLoop;
 Stage stage;
-Juggler juggler = renderLoop.juggler;
+Juggler juggler;
 
 void main() {
   stage = new Stage("oneStage", html.query("#oneStage"));
-  renderLoop = new RenderLoop();
+  RenderLoop renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
-
-  if (Multitouch.supportsTouchEvents) {
-    print("Oh touch screen is supported.");
-    Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
-  } else {
-    html.window.alert('''No touch screen detected!\n\nIf this device has a touch screen, please send a bug report to the StageXL issue tracker on github.''');
-  }
+  juggler = renderLoop.juggler;
+ 
+  
  
   resourceManager = new ResourceManager();
   Grafix.addResource(resourceManager);
@@ -47,12 +42,14 @@ void main() {
   
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
-    Game game = new Game(stage, juggler);
-    game.start();
+    Game game = new Game(stage, renderLoop.juggler);
     stage.addChild(game);
+    game.start();
   }).catchError((error){
     for(var resource in resourceManager.failedResources) {
       print("Loading resource ${resource.kind} ${resource.name} failed: ${resource.error}");
     }
   });
+  
+  
 }
