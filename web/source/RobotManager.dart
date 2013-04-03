@@ -1,13 +1,13 @@
 part of contra;
 
 class RobotManager implements Animatable {
-  HashSet<Robot> robots;
+  List<Robot> robots;
   Sprite layer;
   DateTime lastCreateTimestamp;
 
   RobotManager(Sprite layer) {
     this.layer = layer;
-    robots = new HashSet<Robot>();
+    robots = new List<Robot>();
   }
   
   bool advanceTime(num time) {
@@ -20,6 +20,10 @@ class RobotManager implements Animatable {
         robot.destroy();
       }
     }
+  }
+  
+  getAllRobots() {
+    return robots;
   }
   
   createNewRobot() {

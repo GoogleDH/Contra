@@ -16,6 +16,7 @@ class Player extends Object implements Animatable {
   int directDegree;
   Bitmap playerBitmap;
   int state;
+  bool isDead = false;
   
   Player() {
     
@@ -25,7 +26,8 @@ class Player extends Object implements Animatable {
     print("${x} ${y}");
     speedX = 0.0;
     speedY = 0.0;
-    
+    this.height = playerBitmap.height;
+    this.width = playerBitmap.width;
     direction = Statics.DIRECTION_RIGHT;
     
     state = Statics.PLAYER_STATE_STAND;
@@ -132,6 +134,10 @@ class Player extends Object implements Animatable {
 
   onFire() {
     Game.bulletManager.playerFired(this);
+  }
+  
+  setDead() {
+    isDead = true;
   }
 }
 

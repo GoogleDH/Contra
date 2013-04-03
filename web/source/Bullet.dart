@@ -5,6 +5,7 @@ class Bullet extends Object implements Animatable {
   double speedY;
   double accelerationX;
   double accelerationY;
+  bool dead = false;
   
   int direction;
   bool hostile; // hostile to player or not
@@ -58,10 +59,24 @@ class Bullet extends Object implements Animatable {
     bitmap.rotation = math.atan(speedY / speedX);
     bitmap.x = x - Game.displayWindow.x;
     bitmap.y = y;
+    if (hostile) {
+      if (this.collision(Game.player)) {
+        Game.player.setDead();
+        this.dead = true;
+      }
+    } else {
+      for (Robot robot in Game.robotManager.getAllRobots()) {
+        if (this.collision(robot)) {
+          robot.setDead();
+          this.dead = true;
+          print("one robot killed.");
+        }
+      }
+    }
   }
   
   bool isDead() {
-    return y >= (Statics.WORLD_HEIGHT - Statics.TILE_SIZE);
+    return y >= (Statics.WORLD_HEIGHT - Statics.TILE_SIZE) || dead;
   }
 }
 
