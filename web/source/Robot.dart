@@ -38,13 +38,13 @@ class Robot extends Object implements Animatable {
     }
     
     
-    setCurrentAnimation(right_run);
     
     this
       ..x = x
       ..y = y
-      ..speedX = 100.0
+      ..speedX = 0.0
       ..speedY = 0.0;
+    setCurrentAnimation(right_run);
     juggler.add(this);
   }
   

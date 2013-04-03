@@ -123,7 +123,6 @@ class Player extends Object implements Animatable {
 
     // udpate y
     if (somethingToStandOn == null) {
-      print("in the air");
       // we are in the air, update Y according to speedY
       speedY += Statics.SPEED_Y_ACCELERATE;
       y += speedY;
