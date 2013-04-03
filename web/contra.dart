@@ -36,6 +36,11 @@ void main() {
   resourceManager.addBitmapData("tileocean", "images/tileocean.png");
   resourceManager.addBitmapData("bulletleft", "images/bulletleft.png");
   resourceManager.addBitmapData("bulletright", "images/bulletright.png");
+  resourceManager.addBitmapData("player_dead", "images/player_die.png");
+  resourceManager.addBitmapData("player_leftcrouch", "images/player_leftcrouch.png");
+  resourceManager.addBitmapData("player_rightcrouch", "images/player_rightcrouch.png");
+  resourceManager.addBitmapData("player_leftstand", "images/player_leftstand.png");
+  resourceManager.addBitmapData("player_rightstand", "images/player_rightstand.png");
   
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;

@@ -2,6 +2,14 @@ part of contra;
 
 class Player extends Object implements Animatable {
   
+  Animation left_stand;
+  Animation right_stand;
+  Animation left_crouch;
+  Animation right_crouch;
+  Animation dead;
+  
+  Animation current;
+  
   BitmapData playerData = new BitmapData(40, 80, false, Color.Red);
   BitmapData crouchData = new BitmapData(80, 40, false, Color.Red);
   
@@ -13,13 +21,40 @@ class Player extends Object implements Animatable {
     
     playerBitmap = new Bitmap(playerData);
     playerBitmap.x = x = 100.0;
-    playerBitmap.y = y = WorldMap.fixedLeastHeight - 
-                              playerBitmap.height;
+    playerBitmap.y = y = WorldMap.fixedLeastHeight - playerBitmap.height;
     print("${x} ${y}");
     speedX = 0.0;
     speedY = 0.0;
+    
+    direction = Statics.DIRECTION_RIGHT;
+    
     state = Statics.PLAYER_STATE_STAND;
     addChild(playerBitmap);
+    
+    // Generate Animations
+    left_stand = new Animation(this);
+    right_stand = new Animation(this);
+    left_crouch = new Animation(this);
+    right_crouch = new Animation(this);
+    dead = new Animation(this);
+    
+    left_stand.addFrame(new AnimationFrame("player_leftstand", Animation.FOREVER));
+    right_stand.addFrame(new AnimationFrame("player_rightstand", Animation.FOREVER));
+    left_crouch.addFrame(new AnimationFrame("player_leftcrouch", Animation.FOREVER));
+    right_crouch.addFrame(new AnimationFrame("player_rightcrouch", Animation.FOREVER));
+    dead.addFrame(new AnimationFrame("player_dead", Animation.FOREVER));
+  }
+  
+  setCurrentAnimation(Animation animation) {
+    if (current != null) {
+      current.stop();
+    }
+    current = animation;
+    width = current.getBitmap().width;
+    height = current.getBitmap().height;
+    current.getBitmap().x = x;
+    current.getBitmap().y = y;
+    current.start();
   }
   
   bool advanceTime(num time) {
@@ -56,17 +91,25 @@ class Player extends Object implements Animatable {
   }
   
   onLeft() {
+    if (state == Statics.PLAYER_STATE_CROUCH) {
+      return;
+    }
     speedX = -Statics.SPEED_X;
     state = Statics.PLAYER_STATE_MOVE;
+    direction = Statics.DIRECTION_LEFT;
   }
   
   onRight() {
+    if (state == Statics.PLAYER_STATE_CROUCH) {
+      return;
+    }
     speedX = Statics.SPEED_X;
     state = Statics.PLAYER_STATE_MOVE;
+    direction = Statics.DIRECTION_RIGHT;
   }
   
   onJump() {
-    if (this.speedY != 0) {
+    if (this.speedY != 0 || state == Statics.PLAYER_STATE_CROUCH) {
       return;
     }
     speedY = Statics.SPEED_Y_INITIAL;
@@ -84,6 +127,7 @@ class Player extends Object implements Animatable {
   
   onCrouch() {
     playerBitmap.bitmapData = crouchData;
+    state = Statics.PLAYER_STATE_CROUCH;
   }
 
   onFire() {

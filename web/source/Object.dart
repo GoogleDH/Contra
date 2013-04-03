@@ -10,5 +10,7 @@ abstract class Object extends Sprite {
   
   double speedX;
   double speedY;
+  
+  int direction; // 1 = left; -1 = right
 }
 

@@ -6,6 +6,8 @@ class Animation {
   double duration;
   Sprite sprite;
   
+  static double FOREVER = -1.0;
+  
   Animation(Sprite sprite) {  
     currentIndex = 0;
     duration = 0.0;
@@ -37,7 +39,7 @@ class Animation {
     }
     
     AnimationFrame frame = frames[currentIndex];
-    if (frame.duration == -1) {
+    if (frame.duration == FOREVER) {
       return;
     }
     

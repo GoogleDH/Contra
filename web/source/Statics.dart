@@ -24,6 +24,9 @@ class Statics {
   static const int PLAYER_STATE_JUMP = 2;
   static const int PLAYER_STATE_CROUCH = 3;
   
+  static const int DIRECTION_LEFT = -1;
+  static const int DIRECTION_RIGHT = 1;
+  
   static const int MIN_FIRE_INTERVAL = 200;
 }
 
