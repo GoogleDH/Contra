@@ -55,6 +55,26 @@ class BulletManager implements Animatable {
     bullets.add(bullet);
     layer.addChild(bullet);
   }
+  
+  birdFire(Bird bird) {
+    var speedX = 0;
+    var speedY = bird.y - Game.player.y;
+    //uniform speed
+    var ratio = 100 / math.sqrt(speedX * speedX + speedY * speedY);
+    speedX = speedX * ratio * -1;
+    speedY = speedY * ratio;
+   
+    Bullet bullet = new Bullet.gun(
+        /* x */bird.x + bird.width / 2,
+        /* y */bird.y + bird.height / 3.0,
+        /* speedX */speedX,
+        /* speedY */speedY,
+        /* accelerationX*/0.0,
+        /* accelerationY*/10.0,
+        true, 5);
+    bullets.add(bullet);
+    layer.addChild(bullet);
+  }
 
   
   playerFired(Player player) {

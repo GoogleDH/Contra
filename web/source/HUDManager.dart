@@ -11,8 +11,8 @@ class HUDManager {
   HUDManager(Sprite layer) {
     this.layer = layer;
     tf = new TextField();
-    tf.x = 100;
-    tf.y = 100;
+    tf.x = 20;
+    tf.y = 10;
     layer.addChild(tf);
     
     scoreField = new TextField();
@@ -36,8 +36,10 @@ class HUDManager {
   setBombStatus(bool charging){
     if (charging) {
       tf.text = "Bomb Charging";
+      tf.backgroundColor = Color.Red;
     } else {
       tf.text = "Bomb Ready!";
+      tf.backgroundColor = Color.Green;
     }
      
   }

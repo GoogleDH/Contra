@@ -15,6 +15,12 @@ class Bird extends Object implements Animatable {
   
   double max_width = 0.0;
   double max_height = 0.0;
+  
+  math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
+
+  double shouldTurnAround = 0.0;
+
+  DateTime lastFireTimestamp;
 
   Bird(double x, double y) {
     left_run = new Animation(this);
@@ -27,18 +33,20 @@ class Bird extends Object implements Animatable {
     left_run.addFrame(new AnimationFrame("robot_leftmove3", 0.2));
     left_run.addFrame(new AnimationFrame("robot_leftmove2", 0.2));
     
-    right_run.addFrame(new AnimationFrame("helicopter1", 0.1));
-    right_run.addFrame(new AnimationFrame("helicopter2", 0.1));
-    right_run.addFrame(new AnimationFrame("helicopter3", 0.1));
-    right_run.addFrame(new AnimationFrame("helicopter4", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter1", 0.05));
+    right_run.addFrame(new AnimationFrame("helicopter2", 0.05));
+    right_run.addFrame(new AnimationFrame("helicopter1", 0.05));
+    right_run.addFrame(new AnimationFrame("helicopter3", 0.05));
+    right_run.addFrame(new AnimationFrame("helicopter1", 0.05));
+    right_run.addFrame(new AnimationFrame("helicopter4", 0.05));
     
     left_bleed.addFrame(new AnimationFrame("robot_leftblood1", 0.1));
     left_bleed.addFrame(new AnimationFrame("robot_leftblood2", 0.1));
     left_bleed.addFrame(new AnimationFrame("robot_leftblood3", 0.1));
     
-    right_bleed.addFrame(new AnimationFrame("robot_rightblood1", 0.1));
-    right_bleed.addFrame(new AnimationFrame("robot_rightblood2", 0.1));
-    right_bleed.addFrame(new AnimationFrame("robot_rightblood3", 0.1));
+    right_bleed.addFrame(new AnimationFrame("explosion1", 0.1));
+    right_bleed.addFrame(new AnimationFrame("explosion2", 0.1));
+    right_bleed.addFrame(new AnimationFrame("explosion3", 0.1));
     
     var animations = [left_run, right_run];
     
@@ -91,8 +99,6 @@ class Bird extends Object implements Animatable {
     juggler.remove(this); 
   }
 
-  double shouldTurnAround = 0.0;
-
   bool advanceTime(num time) {
     var oldX = x;
     var oldY = y;
@@ -126,10 +132,13 @@ class Bird extends Object implements Animatable {
 
     current.getBitmap().x = x - Game.displayWindow.x;
     current.getBitmap().y = y;
+    
+    checkIfNeedFire();
 
   }
   
   Bleed(void cb()) {
+    this.y = this.y - 50;
     if (speedX > 0) {
       right_bleed.setCbOnFinish(cb);
       setCurrentAnimation(right_bleed);
@@ -138,11 +147,25 @@ class Bird extends Object implements Animatable {
       setCurrentAnimation(left_bleed);
     }
   }
+  
+  checkIfNeedFire(){
+    var now = new DateTime.now();
+    if (lastFireTimestamp != null
+        && now.millisecondsSinceEpoch - lastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*5) {
+      return;
+    }
+    lastFireTimestamp = now;
+
+    if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.5) {
+      Game.bulletManager.birdFire(this);
+      Sounds.playSoundEffect("robot_fire");
+    }
+  }
 
   setDead() {
     this.isDead = true;
     Game.hudManager.oneBirdKilled();
-    Sounds.playSoundEffect("robot_dead");
+    Sounds.playSoundEffect("explosion");
   }
 }
 
