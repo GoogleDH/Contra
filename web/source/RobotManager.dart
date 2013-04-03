@@ -13,10 +13,10 @@ class RobotManager implements Animatable {
 
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.995) {
-      createNewRobot(Statics.BACKGROUND_WIDTH + Game.displayWindow.x + 100, WorldMap.fixedLeastHeight - 20, 1);
+     // createNewRobot(Statics.BACKGROUND_WIDTH + Game.displayWindow.x + 100, WorldMap.fixedLeastHeight - 20, 1);
     }
     if(random.nextDouble() < 0.005) {
-      createNewRobot(Game.displayWindow.x - 100, WorldMap.fixedLeastHeight - 20, 0);
+     // createNewRobot(Game.displayWindow.x - 100, WorldMap.fixedLeastHeight - 20, 0);
     }
     
     destroyDeadRobot();
