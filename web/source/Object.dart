@@ -25,7 +25,7 @@ class Object extends Sprite {
   }
   
   int collision(Object other) {
-    return collisionXY(x, y);
+    return collisionXY(x, y, other);
   }
   
   int collisionXY(double x, double y, Object other) {
