@@ -15,6 +15,9 @@ class Player extends Object implements Animatable {
   int state;
   bool isDead = false;
   
+  double max_width = 0.0;
+  double max_height = 0.0;
+  
   Player() {
     // Generate Animations
     left_stand = new Animation(this);
@@ -36,6 +39,17 @@ class Player extends Object implements Animatable {
     right_crouch.addFrame(new AnimationFrame("player_rightcrouch", Animation.FOREVER));
     dead.addFrame(new AnimationFrame("player_dead", Animation.FOREVER));
     
+    var animations = [left_stand, right_stand, left_run, right_run, left_crouch, right_crouch, dead];
+    
+    for (var x in animations) {
+      for (var f in x.frames) {
+        max_width = math.max(max_width, f.bitmap.width);
+        max_height = math.max(max_height, f.bitmap.height);
+      }
+    }
+    
+    
+    
     setCurrentAnimation(right_stand);
     
     x = current.getBitmap().x = 100.0;
@@ -46,6 +60,14 @@ class Player extends Object implements Animatable {
 
     direction = Statics.DIRECTION_RIGHT;
     state = Statics.PLAYER_STATE_STAND;
+  }
+  
+  double get width {
+    return max_width;
+  }
+  
+  double get height {
+    return max_height;
   }
 
   setCurrentAnimation(Animation animation) {

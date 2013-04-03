@@ -10,14 +10,15 @@ class Collision {
   static int isCollidedWithTerrain(Object obj, double oldX, double oldY){
     List<Tile> bricks = Game.worldMap.bricks;
     if(bricks == null) return 0;
+    int result = 0;
     for(Tile o in bricks){
-      int result = obj.collisionWithDirection(o, oldX, oldY); 
-      if(result > 0){
-        print("Collided! $result : "+ obj.toString()+ " with " + o.toString() + " oldX = " + oldX.toString() + " oldY = " + oldY.toString());
-        return result;
+      int c = obj.collisionWithDirection(o, oldX, oldY); 
+      if(c > 0){
+        print("Collided! $c : "+ obj.toString()+ " with " + o.toString() + " oldX = " + oldX.toString() + " oldY = " + oldY.toString());
+        result |= c;
       }
     }
-    return 0;
+    return result;
   }
   
   static Tile hasSomethingToStandOn(Object obj){
@@ -25,7 +26,7 @@ class Collision {
     if(bricks == null) return null;
     for(Tile o in bricks){
       if(o.y >= obj.y + obj.height && o.y <= obj.y + obj.height + obj.speedY && 
-          ((obj.x + obj.width > o.x && obj.x < o.x) || (obj.x < o.x + o.width && obj.x > o.x)) ){
+          !(obj.x + obj.width < o.x || obj.x > o.x + o.width)) {
         return o;
       }
     }
