@@ -51,9 +51,10 @@ class Player extends Object implements Animatable {
     right_die.addFrame(new AnimationFrame("player_rightdie", Animation.FOREVER));
     left_jump.addFrame(new AnimationFrame("player_leftjump", Animation.FOREVER));
     right_jump.addFrame(new AnimationFrame("player_rightjump", Animation.FOREVER));
-    print("here2");
     
-    var animations = [left_stand, right_stand, left_run, right_run, left_crouch, right_crouch, dead];
+    List<Animation> animations = [left_stand, right_stand, left_crouch, right_crouch,
+                                  left_run, right_run, left_die, right_die, left_jump,
+                                  right_jump];
     
     for (var x in animations) {
       for (var f in x.frames) {
