@@ -94,7 +94,7 @@ class Game extends Sprite {
     }
     
     print("start sound");
-    Sounds.playerBackground();
+    Sounds.playBackground();
     print("end sound");
   }
 
