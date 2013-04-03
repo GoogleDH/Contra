@@ -50,7 +50,8 @@ class Grafix {
     resourceManager.addBitmapData("helicopter2", "images/helicopter2.png");
     resourceManager.addBitmapData("helicopter3", "images/helicopter3.png");
     resourceManager.addBitmapData("helicopter4", "images/helicopter4.png");
-    
+    resourceManager.addBitmapData("bullet2", "images/bullet2.png");
+
     Grafix.resourceManager = resourceManager;
   }
 }
