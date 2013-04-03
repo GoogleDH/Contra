@@ -230,6 +230,7 @@ class Player extends Object implements Animatable {
       setCurrentAnimation(right_stand);
     }
     state = Statics.PLAYER_STATE_STAND;
+    Sounds.playSoundEffect("clip_change");
   }
 
   onCrouch() {
@@ -249,6 +250,7 @@ class Player extends Object implements Animatable {
       return;
     }
     Game.bulletManager.playerFired(this);
+    Sounds.playSoundEffect("rifle");
   }
 
   onBomb() {
@@ -266,6 +268,7 @@ class Player extends Object implements Animatable {
       setCurrentAnimation(right_die);
     }
     isDead = true;
+    Sounds.playSoundEffect("player_dead");
   }
   
   String toString(){

@@ -87,6 +87,7 @@ class Robot extends Object implements Animatable {
 /*
     if(random.nextDouble() > 0.97) {
       Game.bulletManager.robotFired(this);
+      Sounds.playSoundEffect("robot_fire");
     }
 */
     
@@ -94,6 +95,7 @@ class Robot extends Object implements Animatable {
 
   setDead() {
     this.isDead = true;
+    Sounds.playSoundEffect("robot_dead");
   }
 }
 
