@@ -144,7 +144,8 @@ class Robot extends Object implements Animatable {
     } 
     
     int collision = Collision.isCollidedWithTerrain(this, oldX, oldY);
-    if(collision == 1 || collision == 3){
+    if(collision == 1 || collision == 3
+       || x <= 0 || x >= Game.worldMap.width - this.width){
       //collided on x, reset x
       x = oldX;
       speedX = -speedX;
