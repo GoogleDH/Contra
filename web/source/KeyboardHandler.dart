@@ -1,38 +1,34 @@
 part of contra;
 
-class KeyboardHandler implements Animatable {
-  HashSet<int> keyCodes;
+class KeyboardHandler {
+  // HashSet<int> keyCodes;
   Player player;
   
   KeyboardHandler(Player player) {
-    this
-      ..player = player
-      ..keyCodes = new HashSet<int>();
+    this.player = player;
+     // ..keyCodes = new HashSet<int>();
     html.window.onKeyDown.listen((e) {
-      keyCodes.add(e.keyCode);
+      switch(e.keyCode) {
+        case Statics.KEY_FIRE: player.onFire(); break;
+        case Statics.KEY_RIGHT: player.onRight(); break;
+        case Statics.KEY_LEFT: player.onLeft(); break;
+        case Statics.KEY_DOWN: player.onCrouch(); break;
+        case Statics.KEY_JUMP: player.onJump(); break;
+        case Statics.KEY_CREATE_ENEMY:  Game.robotManager.createNewRobot(); break;
+      }
     });
     html.window.onKeyUp.listen((e) {
-      keyCodes.remove(e.keyCode);
+      switch(e.keyCode) {
+        case Statics.KEY_LEFT:
+        case Statics.KEY_RIGHT:
+        case Statics.KEY_DOWN:
+          player.onStand(); break;
+      }
     });
   }
-  
-  bool advanceTime(num time) {
-    //if (!keyCodes.isEmpty) print(keyCodes);
-    player.onStand();
-    for (var code in keyCodes) {
-      switch (code) {
-        case Statics.KEY_FIRE:  player.onFire();   break;
-        case Statics.KEY_RIGHT: player.onRight();  break;
-        case Statics.KEY_LEFT:  player.onLeft();   break;
-        case Statics.KEY_DOWN:  player.onCrouch(); break;
-        case Statics.KEY_JUMP:  player.onJump();   break;
-        case Statics.KEY_CREATE_ENEMY:  Game.robotManager.createNewRobot();   break;
-      }
-    }
-  }
-  
+
   bool isPressingUpKey(){
-    return keyCodes.contains(Statics.KEY_UP);
+    return false;
+    // return keyCodes.contains(Statics.KEY_UP);
   }
-  
 }

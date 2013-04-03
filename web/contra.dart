@@ -29,7 +29,7 @@ void main() {
   stage = new Stage("oneStage", html.query("#oneStage"));
   renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
-  
+
   resourceManager = new ResourceManager();
   resourceManager.addBitmapData("background", "images/background.png");
   resourceManager.addBitmapData("tiledirt", "images/tiledirt.png");
@@ -41,7 +41,7 @@ void main() {
   resourceManager.addBitmapData("player_rightcrouch", "images/player_rightcrouch.png");
   resourceManager.addBitmapData("player_leftstand", "images/player_leftstand.png");
   resourceManager.addBitmapData("player_rightstand", "images/player_rightstand.png");
-  
+
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
     Game game = new Game(juggler);

@@ -2,18 +2,18 @@
 part of contra;
 
 class WorldMap extends Object implements Animatable {
-  
+
   Bitmap skyBitmap;
   Bitmap skyBitmap2;
   double cloudMovingSpeed = 20.0;
   double duration;
-  
+
   static double fixedLeastHeight = Statics.WORLD_HEIGHT - Statics.TILE_SIZE;
   List<int> terrainHeights = new List<int>();
   List<Bitmap> tileDirts = new List<Bitmap>();
   List<Bitmap> tileOceans = new List<Bitmap>();
-  
-  WorldMap() {   
+
+  WorldMap() {
     print("before add assign window.");
     this.width = 10000;
     print("after add assign window.");
@@ -43,7 +43,7 @@ class WorldMap extends Object implements Animatable {
     }
     duration = 0.0;
   }
-  
+
   bool advanceTime(num time) {
     duration += time;
     if (duration > 0.2) {
@@ -57,7 +57,7 @@ class WorldMap extends Object implements Animatable {
       }
       duration = 0.0;
     }
-    
+
     // background tiles
     double offset = -Game.displayWindow.x + (Game.displayWindow.x / Statics.TILE_SIZE).toInt() * Statics.TILE_SIZE;
     for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
@@ -69,19 +69,19 @@ class WorldMap extends Object implements Animatable {
     }
     return true;
   }
-  
-  
+
+
   // return the left bound of a object;
   leftBound(Object object) {
-    
+
   }
-  
+
   rightBound(Object object) {
-    
+
   }
-  
+
   downBound(Object object) {
-    
+
   }
 }
 
