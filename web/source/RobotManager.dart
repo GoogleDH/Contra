@@ -15,11 +15,16 @@ class RobotManager implements Animatable {
   }
   
   destroyDeadRobot() {
+    HashSet<Robot> robotsToRemove = new HashSet<Robot>();
+
     for(Robot robot in robots) {
-      if (false) {
+      if (robot.isDead) {
+        layer.removeChild(robot);
+        robotsToRemove.add(robot);
         robot.destroy();
       }
     }
+    robots.removeAll(robotsToRemove);
   }
   
   getAllRobots() {

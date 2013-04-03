@@ -31,7 +31,7 @@ class Robot extends Object implements Animatable {
   }
   
   destroy() {
-    
+    juggler.remove(this); 
   }
   
   double shouldTurnAround = 0.0;
