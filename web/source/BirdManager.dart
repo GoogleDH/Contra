@@ -14,7 +14,7 @@ class BirdManager implements Animatable {
 
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.995) {
-    createNewRobot(300.0, WorldMap.fixedLeastHeight - 20);
+      createNewRobot(300.0, WorldMap.fixedLeastHeight - 20);
     }
     destroyDeadRobot();
   }
