@@ -15,6 +15,10 @@ class Player extends Object implements Animatable {
 
   Animation current;
   
+  int hp = 100;
+  
+  static const FULL_HP = 100;
+  
   static const double borderX = 20.0;
   static const double borderY = 0.0;
 
@@ -162,7 +166,7 @@ class Player extends Object implements Animatable {
     
     for (Robot robot in Game.robotManager.getAllRobots()) {
       if (this.collision(robot) > 0) {
-        this.setDead();
+        hurt();
 //        print("player collision with robot");
         break;
       }
@@ -273,9 +277,16 @@ class Player extends Object implements Animatable {
     }
     Game.bulletManager.playerBombed(this);
   }
+  
+  hurt() {
+    hp--;
+    if (hp <= 0) {
+      setDead();
+    }
+    //Game.hudManager.updateBloodStrip(this);
+  }
 
   setDead() {
-    return;
     state = Statics.PLAYER_STATE_DEAD;
     if (direction == Statics.DIRECTION_LEFT) {
       setCurrentAnimation(left_die);
