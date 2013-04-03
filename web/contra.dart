@@ -21,6 +21,7 @@ part 'source/DisplayWindow.dart';
 part 'source/Statics.dart';
 part 'source/KeyboardHandler.dart';
 part 'source/Tile.dart';
+part 'source/TouchManager.dart';
 
 ResourceManager resourceManager;
 RenderLoop renderLoop;
@@ -54,7 +55,7 @@ void main() {
 
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
-    Game game = new Game(juggler);
+    Game game = new Game(stage, juggler);
     game.start();
     stage.addChild(game);
   }).catchError((error){
