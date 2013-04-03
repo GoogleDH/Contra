@@ -56,9 +56,11 @@ class Game extends Sprite {
     player = new Player();
     print("player create");
     _gameLayer.addChild(player);
- 
-    robotManager = new RobotManager();
+
+    juggler.add(player);
     
+    robotManager = new RobotManager(_gameLayer);
+    juggler.add(robotManager);
     bulletManager = new BulletManager(_gameLayer); 
     
     

@@ -12,9 +12,6 @@ class BulletManager implements Animatable {
     bullets = new HashSet<Bullet>();
   }
   
-  addBullet(bool fromPlayer) {
-  }
-  
   bool advanceTime(num time) {
     HashSet<Bullet> bulletsToRemove = new HashSet<Bullet>();
     for (Bullet bullet in bullets) {
@@ -36,6 +33,21 @@ class BulletManager implements Animatable {
 
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
   
+  robotFired(Robot robot) {
+    
+    var direction = robot.speedX >= 0 ? 1 : -1; // TODO
+    Bullet bullet = new Bullet(
+        direction == 1 ? robot.x + robot.bitmap.width : robot.x,
+        robot.y + robot.bitmap.height / 3.0,
+        500.0 * direction,
+        200.0,
+        -100.0 * direction,
+        -1000.0,
+        true, 100);
+    bullets.add(bullet);
+    layer.addChild(bullet);
+  }
+  
   playerFired(Player player) {
     var now = new DateTime.now();
     if (lastFireTimestamp != null
@@ -55,7 +67,6 @@ class BulletManager implements Animatable {
         false, 100);
     bullets.add(bullet);
     layer.addChild(bullet);
-    bullets.add(bullet);
   }
 }
 
