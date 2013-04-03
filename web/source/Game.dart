@@ -68,6 +68,7 @@ class Game extends Sprite {
     juggler.add(robotManager);
     juggler.add(bulletManager);
     juggler.add(player);
+    juggler.add(keyboardHandler);
   }
 
   _onEnterFrame(EnterFrameEvent event) {
