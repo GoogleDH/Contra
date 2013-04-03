@@ -6,11 +6,11 @@ class HUDManager {
   TextField tf;
   TextField scoreField;
   TextField blood;
+  TextField leftBlood;
   Sprite layer;
   int score = 0;
   int bloodLeft = 300;
   int bloodRight = 500;
-  const int bloodHeight = 5;
   
   HUDManager(Sprite layer) {
     this.layer = layer;
@@ -25,12 +25,21 @@ class HUDManager {
     scoreField.y = 10;
     layer.addChild(scoreField);
     scoreField.text = score.toString();
+    print("in HudManager");
     
-//    blood = new TextField();
-//    blood.x = 400;
-//    blood.y = 10;
-//    blood.text = Player.FULL_HP;
-//    layer.addChild(blood);
+    leftBlood = new TextField();
+    leftBlood.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Red);
+    leftBlood.x = 400;
+    leftBlood.y = 10;
+    leftBlood.text = Player.FULL_HP.toString();
+    layer.addChild(leftBlood);
+ 
+    blood = new TextField();
+    blood.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Green);
+    blood.x = 430;
+    blood.y = 10;
+    blood.text = "/" + Player.FULL_HP.toString();
+    layer.addChild(blood);
     
   }
   
@@ -45,8 +54,7 @@ class HUDManager {
   }
   
   void updateBloodStrip(Player player) {
-//    blood.text = player.hp.toString() + "/" + Player.FULL_HP;
-//    print("update blood");
+    leftBlood.text = player.hp.toString();
   }
   
   setBombStatus(bool charging){
@@ -57,8 +65,6 @@ class HUDManager {
       tf.text = "Bomb Ready!";
       tf.textColor = Color.Green;
     }
-     
   }
-  
 }
 

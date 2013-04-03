@@ -283,7 +283,7 @@ class Player extends Object implements Animatable {
     if (hp <= 0) {
       setDead();
     }
-    //Game.hudManager.updateBloodStrip(this);
+    Game.hudManager.updateBloodStrip(this);
   }
 
   setDead() {
