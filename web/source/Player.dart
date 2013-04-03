@@ -69,8 +69,8 @@ class Player extends Object implements Animatable {
       if (x < 0) {
         x = 0.0;
       }
-      if (x > Game.worldMap.width) {
-        x = Game.worldMap.width;
+      if (x > Game.worldMap.width - this.width) {
+        x = Game.worldMap.width - this.width;
       }
       changed = true;
     }
