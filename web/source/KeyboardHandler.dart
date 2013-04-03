@@ -13,15 +13,19 @@ class KeyboardHandler implements Animatable {
     
     html.window.onKeyUp.listen((e) {
       keyCodes.remove(e.keyCode);
-      if (keyCodes.isEmpty) {
-        switch (e.keyCode) {
-          case Statics.KEY_LEFT:
-          case Statics.KEY_RIGHT:
-          case Statics.KEY_DOWN:
-          case Statics.KEY_JUMP:
-            player.onStand();
+      switch (e.keyCode) {
+        case Statics.KEY_LEFT:
+        case Statics.KEY_RIGHT:
+        case Statics.KEY_DOWN:
+        case Statics.KEY_JUMP:
+          if (keyCodes.contains(Statics.KEY_LEFT)
+           || keyCodes.contains(Statics.KEY_RIGHT)
+           || keyCodes.contains(Statics.KEY_DOWN)
+           || keyCodes.contains(Statics.KEY_JUMP)) {
             break;
-        }
+          }
+          player.onStand();
+          break;
       }
     });
     

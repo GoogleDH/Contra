@@ -4,6 +4,8 @@ class Player extends Object implements Animatable {
 
   Animation left_stand;
   Animation right_stand;
+  Animation left_run;
+  Animation right_run;
   Animation left_crouch;
   Animation right_crouch;
   Animation dead;
@@ -17,12 +19,19 @@ class Player extends Object implements Animatable {
     // Generate Animations
     left_stand = new Animation(this);
     right_stand = new Animation(this);
+    left_run = new Animation(this);
+    right_run = new Animation(this);
     left_crouch = new Animation(this);
     right_crouch = new Animation(this);
     dead = new Animation(this);
 
     left_stand.addFrame(new AnimationFrame("player_leftstand", Animation.FOREVER));
     right_stand.addFrame(new AnimationFrame("player_rightstand", Animation.FOREVER));
+    left_run.addFrame(new AnimationFrame("player_leftrun1", 0.1));
+    left_run.addFrame(new AnimationFrame("player_leftrun2", 0.1));
+    left_run.addFrame(new AnimationFrame("player_leftrun3", 0.1));
+    left_run.addFrame(new AnimationFrame("player_leftrun2", 0.1));
+    right_run.addFrame(new AnimationFrame("player_rightrun1", Animation.FOREVER)); // TODO
     left_crouch.addFrame(new AnimationFrame("player_leftcrouch", Animation.FOREVER));
     right_crouch.addFrame(new AnimationFrame("player_rightcrouch", Animation.FOREVER));
     dead.addFrame(new AnimationFrame("player_dead", Animation.FOREVER));
@@ -40,6 +49,9 @@ class Player extends Object implements Animatable {
   }
 
   setCurrentAnimation(Animation animation) {
+    if (current == animation) {
+      return;
+    }
     if (current != null) {
       current.stop();
     }
@@ -50,11 +62,8 @@ class Player extends Object implements Animatable {
       current.getBitmap().x = x;
     }
     if (y != null) {
-      if (y > WorldMap.fixedLeastHeight - height) {
-        current.getBitmap().y = y = WorldMap.fixedLeastHeight - height;
-      } else {
-        current.getBitmap().y = y;
-      }
+      y = math.min(y, WorldMap.fixedLeastHeight - height);
+      current.getBitmap().y = y;
     }
     current.start();
   }
@@ -68,8 +77,8 @@ class Player extends Object implements Animatable {
       if (x < 0) {
         x = 0.0;
       }
-      if (x > Game.worldMap.width) {
-        x = Game.worldMap.width;
+      if (x > Game.worldMap.width - width) {
+        x = Game.worldMap.width - width;
       }
     }
 
@@ -90,8 +99,8 @@ class Player extends Object implements Animatable {
       }
     }
     
-    current.getBitmap().x = (x - Game.displayWindow.x).toInt();
-    current.getBitmap().y = y.toInt();
+    current.getBitmap().x = x - Game.displayWindow.x;
+    current.getBitmap().y = y;
 
     Game.displayWindow.updateAbosultePos(this);
   }
@@ -103,6 +112,7 @@ class Player extends Object implements Animatable {
     }
     speedX = -Statics.SPEED_X;
     state = Statics.PLAYER_STATE_MOVE;
+    setCurrentAnimation(left_run);
   }
 
   onRight() {
@@ -112,6 +122,7 @@ class Player extends Object implements Animatable {
     }
     speedX = Statics.SPEED_X;
     state = Statics.PLAYER_STATE_MOVE;
+    setCurrentAnimation(right_run);
   }
 
   onJump() {

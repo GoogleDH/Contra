@@ -41,7 +41,13 @@ void main() {
   resourceManager.addBitmapData("player_rightcrouch", "images/player_rightcrouch.png");
   resourceManager.addBitmapData("player_leftstand", "images/player_leftstand.png");
   resourceManager.addBitmapData("player_rightstand", "images/player_rightstand.png");
-
+  resourceManager.addBitmapData("player_leftrun1", "images/player_leftrun1.png");
+  resourceManager.addBitmapData("player_leftrun2", "images/player_leftrun2.png");
+  resourceManager.addBitmapData("player_leftrun3", "images/player_leftrun3.png");
+  resourceManager.addBitmapData("player_rightrun1", "images/player_rightstand.png");
+  resourceManager.addBitmapData("player_rightrun2", "images/player_rightstand.png");
+  resourceManager.addBitmapData("player_rightrun3", "images/player_rightstand.png");
+  
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
     Game game = new Game(juggler);
