@@ -9,12 +9,13 @@ class BirdManager implements Animatable {
 
   BirdManager(Sprite layer) {
     this.layer = layer;
-    robots = new List<Bird>();
+    birds = new List<Bird>();
   }
 
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.995) {
-      createNewRobot(300.0, WorldMap.fixedLeastHeight - 20);
+      print("create one bird.");
+      createNewBird(300.0, 20.0);
     }
     destroyDeadRobot();
   }
@@ -23,15 +24,15 @@ class BirdManager implements Animatable {
     HashSet<Bird> birdsToRemove = new HashSet<Bird>();
 
     for(Bird bird in birds) {
-      if (robot.isDead) {
+      if (bird.isDead) {
         birdsToRemove.add(bird);
-        birds.Bleed(() {
+        bird.Bleed(() {
           layer.removeChild(bird);
           bird.destroy();
         });
       }
     }
-    birds.removeAll(robotsToRemove);
+    birds.removeAll(birdsToRemove);
   }
   
   getAllBirds() {
@@ -48,7 +49,6 @@ class BirdManager implements Animatable {
     }
     lastCreateTimestamp = now;
 */
-    print("create robot");
     Bird bird = new Bird(x, y);
     birds.add(bird);
     layer.addChild(bird);

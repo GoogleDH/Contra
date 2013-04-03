@@ -17,6 +17,7 @@ class Game extends Sprite {
   Stage stage;
 
   static Player player;
+  static BirdManager birdManager;
   static RobotManager robotManager;
   static BulletManager bulletManager;
   static WorldMap worldMap;
@@ -70,11 +71,13 @@ class Game extends Sprite {
     juggler.add(player);
 
     robotManager = new RobotManager(_gameLayer);  
+    birdManager = new BirdManager(_gameLayer);
     bulletManager = new BulletManager(_gameLayer);
     keyboardHandler = new KeyboardHandler(player);
     touchManager = new TouchManager();
     
     juggler.add(robotManager);
+    juggler.add(birdManager);
     juggler.add(worldMap);
     juggler.add(robotManager);
     juggler.add(bulletManager);

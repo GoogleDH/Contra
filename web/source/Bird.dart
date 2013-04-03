@@ -1,6 +1,6 @@
 part of contra;
 
-class Robot extends Object implements Animatable {
+class Bird extends Object implements Animatable {
   
   Animation left_run;
   Animation right_run;
@@ -16,7 +16,7 @@ class Robot extends Object implements Animatable {
   double max_width = 0.0;
   double max_height = 0.0;
 
-  Robot(double x, double y) {
+  Bird(double x, double y) {
     left_run = new Animation(this);
     right_run = new Animation(this);
     left_bleed = new Animation(this);

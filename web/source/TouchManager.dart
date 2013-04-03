@@ -22,26 +22,36 @@ class TouchManager {
   
   void onTouchBegin(TouchEvent touchEvent) {
     print("touch begin ${touchEvent.stageX} ${touchEvent.stageY}");
+    DisplayWindow displayWindow = Game.displayWindow;
+    for (Bird bird in Game.birdManager.getAllBirds()) {
+      double x = touchEvent.stageX + displayWindow.x;
+      double y = touchEvent.stageY + displayWindow.y;
+      print("touch world ${x} ${y}");
+      print("bird x y is ${bird.x} ${bird.y}");
+      if (x > bird.x && x < bird.x + bird.width && y > bird.y && y < bird.height) {
+        bird.setDead();
+      }
+    }
   }
 
   void onTouchEnd(TouchEvent touchEvent) {
-    print("touche end ${touchEvent.stageX} ${touchEvent.stageY}");
+//    print("touche end ${touchEvent.stageX} ${touchEvent.stageY}");
   }
 
   void onTouchCancel(TouchEvent touchEvent) {
-    print("touch cancel ${touchEvent.stageX} ${touchEvent.stageY}");
+//    print("touch cancel ${touchEvent.stageX} ${touchEvent.stageY}");
   }
 
   void onTouchMove(TouchEvent touchEvent) {
-    print("touch move${touchEvent.stageX} ${touchEvent.stageY}");
+//    print("touch move${touchEvent.stageX} ${touchEvent.stageY}");
   }
 
   void onTouchOut(TouchEvent touchEvent) {
-    print("${touchEvent.stageX} ${touchEvent.stageY}");
+//    print("${touchEvent.stageX} ${touchEvent.stageY}");
   }
 
   void onTouchOver(TouchEvent touchEvent) {
-    print("touch over ${touchEvent.stageX} ${touchEvent.stageY}");
+//    print("touch over ${touchEvent.stageX} ${touchEvent.stageY}");
   }
   
 }
