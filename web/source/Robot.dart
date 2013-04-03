@@ -2,6 +2,8 @@ part of contra;
 
 class Robot extends Object implements Animatable {
   
+  int hp = 3;
+  
   Animation left_run;
   Animation right_run;
   Animation left_bleed;
@@ -58,6 +60,13 @@ class Robot extends Object implements Animatable {
       ..speedY = 0.0;
     setCurrentAnimation(right_run);
     juggler.add(this);
+  }
+  
+  hurt(){
+    hp --;
+    if(hp <= 0){
+      isDead = true;
+    }
   }
   
   changeDirection(int directioin){
