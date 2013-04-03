@@ -90,13 +90,15 @@ class Player extends Object implements Animatable {
       }
     }
     
+    Game.displayWindow.updateAbosultePos(this);
+    
     if (changed) {
       playerBitmap.x = (x - Game.displayWindow.x).toInt();
       
       playerBitmap.y = y.toInt();
     }
     
-    Game.displayWindow.updateAbosultePos(this);
+   
   }
   
   onLeft() {
