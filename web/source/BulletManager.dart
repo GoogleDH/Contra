@@ -37,13 +37,13 @@ class BulletManager implements Animatable {
   robotFired(Robot robot) {
 
     var direction = robot.speedX >= 0 ? 1 : -1; // TODO
-    Bullet bullet = new Bullet(
+    Bullet bullet = new Bullet.gun(
         direction == 1 ? robot.x + robot.width : robot.x,
         robot.y + robot.height / 3.0,
-        500.0 * direction,
-        200.0,
-        -100.0 * direction,
-        -1000.0,
+        200.0 * direction,
+        0.0,
+        0.0 * direction,
+        0.0,
         true, 5);
     bullets.add(bullet);
     layer.addChild(bullet);

@@ -17,7 +17,6 @@ class TouchManager {
       glass.addEventListener(TouchEvent.TOUCH_OVER, onTouchOver);
       
     } else {
-      html.window.alert('''No touch screen detected!\n\nIf this device has a touch screen, please send a bug report to the StageXL issue tracker on github.''');
     }
   }
   

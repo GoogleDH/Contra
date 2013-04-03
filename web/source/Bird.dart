@@ -91,8 +91,6 @@ class Robot extends Object implements Animatable {
     juggler.remove(this); 
   }
 
-  math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
-
   double shouldTurnAround = 0.0;
 
   bool advanceTime(num time) {
@@ -100,13 +98,19 @@ class Robot extends Object implements Animatable {
     var oldY = y;
     
     
+    //x += speedX * time;
+    //y += speedY * time;
+    //speedX += accelerationX * time;
+    //speedY += accelerationY * time;
+
+    //current.getBitmap().x = x - Game.displayWindow.x;
     current.update(time);
-    
-    if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.97) {
+/*
+    if(random.nextDouble() > 0.97) {
       Game.bulletManager.robotFired(this);
       Sounds.playSoundEffect("robot_fire");
     }
-    
+*/
     Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
     
     // update x
@@ -118,47 +122,6 @@ class Robot extends Object implements Animatable {
       if (x > Game.worldMap.width - this.width) {
         x = Game.worldMap.width - this.width;
       }
-    }
-
-    // udpate y
-    if (somethingToStandOn == null) {
-      // we are in the air, update Y according to speedY
-      speedY += Statics.SPEED_Y_ACCELERATE;
-      y += speedY;
-      if(y > WorldMap.fixedLeastHeight - height){
-        speedY = 0.0;
-        y = WorldMap.fixedLeastHeight - height;
-      }
-    } else {
-      if(speedY > 0){ 
-        // falling
-        speedY = 0.0;
-        y = somethingToStandOn.y - height;
-      } else if(speedY < 0){
-        // ascending
-        y += speedY;
-      } else {
-        // standing
-        // do nothing?
-      }
-    } 
-    
-    int collision = Collision.isCollidedWithTerrain(this, oldX, oldY);
-    if(collision == 1 || collision == 3){
-      //collided on x, reset x
-      x = oldX;
-      speedX = -speedX;
-      if (speedX > 0) {
-        setCurrentAnimation(right_run);
-      } else {
-        setCurrentAnimation(left_run);
-      }
-      
-    }
-    if(collision >= 2){
-      // prevent from going into wall, in x and y direction
-      speedY = 0.0;
-      y = oldY;
     }
 
     current.getBitmap().x = x - Game.displayWindow.x;
