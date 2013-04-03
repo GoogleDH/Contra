@@ -5,7 +5,7 @@ class Robot extends Object implements Animatable {
   
   static int TYPE_JUMPPING = 0;
   static int TYPE_SHOOTING = 1;
-  
+  bool isDead = false;
   int type;
   
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
@@ -55,5 +55,8 @@ class Robot extends Object implements Animatable {
     }
   }
   
+  setDead() {
+    this.isDead = true;
+  }
 }
 

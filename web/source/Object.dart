@@ -10,5 +10,12 @@ abstract class Object extends Sprite {
   
   double speedX;
   double speedY;
+  
+  bool collision(Object other) {
+    return x < other.x + other.width
+        && x + width > other.x
+        && y < other.y + other.height
+        && y + height > other.y;
+  }
 }
 

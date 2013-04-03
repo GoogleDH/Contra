@@ -8,6 +8,7 @@ class Player extends Object implements Animatable {
   int directDegree;
   Bitmap playerBitmap;
   int state;
+  bool isDead = false;
   
   Player() {
     
@@ -88,6 +89,10 @@ class Player extends Object implements Animatable {
 
   onFire() {
     Game.bulletManager.playerFired(this);
+  }
+  
+  setDead() {
+    isDead = true;
   }
 }
 
