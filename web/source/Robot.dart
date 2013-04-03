@@ -217,7 +217,7 @@ class Robot extends Object implements Animatable {
 
   setDead() {
     this.isDead = true;
-    Game.score.oneRobotKilled();
+    Game.hudManager.oneRobotKilled();
     Sounds.playSoundEffect("robot_dead");
   }
 }

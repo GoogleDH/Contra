@@ -19,7 +19,6 @@ class Game extends Sprite {
   static DisplayWindow displayWindow;
   static KeyboardHandler keyboardHandler;
   static TouchManager touchManager;
-  static Score score;
   
   static TextField scoreField;
   static HUDManager hudManager;
@@ -66,16 +65,6 @@ class Game extends Sprite {
     keyboardHandler = new KeyboardHandler(player);
     hudManager = new HUDManager(_interfaceLayer);
     touchManager = new TouchManager();
-    
-
-    scoreField = new TextField();
-    scoreField.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Black);
-    scoreField.x = Statics.BACKGROUND_WIDTH - 60;
-    scoreField.y = 10;
-    _interfaceLayer.addChild(scoreField);
-    scoreField.text = score.score.toString();
-    
-    score = new Score(scoreField);
     
     juggler.add(robotManager);
     juggler.add(birdManager);

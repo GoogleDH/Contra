@@ -141,7 +141,7 @@ class Bird extends Object implements Animatable {
 
   setDead() {
     this.isDead = true;
-    Game.score.oneBirdKilled();
+    Game.hudManager.oneBirdKilled();
     Sounds.playSoundEffect("robot_dead");
   }
 }
