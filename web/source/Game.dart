@@ -85,7 +85,10 @@ class Game extends Sprite {
       glass.addEventListener(TouchEvent.TOUCH_OUT, touchManager.onTouchOut);
       glass.addEventListener(TouchEvent.TOUCH_OVER, touchManager.onTouchOver);
     }
-   
+    
+    print("start sound");
+    Sounds.playerBackground();
+    print("end sound");
   }
 
   _onEnterFrame(EnterFrameEvent event) {

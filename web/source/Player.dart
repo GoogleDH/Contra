@@ -243,12 +243,19 @@ class Player extends Object implements Animatable {
     }
     state = Statics.PLAYER_STATE_CROUCH;
   }
-
+  
   onFire() {
     if (state == Statics.PLAYER_STATE_DEAD) {
       return;
     }
     Game.bulletManager.playerFired(this);
+  }
+
+  onBomb() {
+    if (state == Statics.PLAYER_STATE_DEAD) {
+      return;
+    }
+    Game.bulletManager.playerBombed(this);
   }
 
   setDead() {

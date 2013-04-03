@@ -44,6 +44,8 @@ class Grafix {
     resourceManager.addBitmapData("robot_rightshoot", "images/robot_rightshoot.png");
     resourceManager.addBitmapData("robot", "images/chicken.png");
     resourceManager.addBitmapData("brick", "images/brick.png");
+    resourceManager.addBitmapData("bullet1Left", "images/bullet1Left.png");
+    resourceManager.addBitmapData("bullet1Right", "images/bullet1Right.png");
 
     Grafix.resourceManager = resourceManager;
   }
