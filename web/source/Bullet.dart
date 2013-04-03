@@ -58,13 +58,21 @@ class Bullet extends Object implements Animatable {
          bool hostile, num duration) {
     type = 1;//gun
     this.direction = speedX >= 0 ? 1 : -1;
-    bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bullet1Right" : "bullet1Left"));
+    if(hostile) {
+      bitmap = new Bitmap(Grafix.resourceManager.getBitmapData("bullet2"));
+    }
+    else {
+      bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bullet1Right" : "bullet1Left"));
+    }
     bitmap
       ..x = x - Game.displayWindow.x
       ..y = y
       ..scaleX = 2.0
       ..scaleY = 2.0;
-    
+    if(hostile){
+      bitmap.scaleX = 1.0;
+      bitmap.scaleY = 1.0;
+    }
     this
       ..x = x - (speedX >= 0 ? 0 : bitmap.width)
       ..y = y
@@ -90,7 +98,6 @@ class Bullet extends Object implements Animatable {
         this.y -= this.width * math.sin(math.atan(this.speedY / this.speedX));
       }
     }
-
 
     this.addChild(bitmap);
     juggler.add(this);
@@ -125,7 +132,7 @@ class Bullet extends Object implements Animatable {
     x += speedX * time;
     y += speedY * time;
     
-    if (type == 1) {
+    if (type == 1 && !hostile) {
       y += 5 * random.nextDouble() - 2.5;
     }
     
@@ -151,7 +158,7 @@ class Bullet extends Object implements Animatable {
     } else {
       for (Robot robot in Game.robotManager.getAllRobots()) {
         if (this.collision(robot) > 0) {
-          robot.setDead();
+          robot.hurt();
           this.dead = true;
           print("one robot killed.");
           break;
