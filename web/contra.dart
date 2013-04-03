@@ -36,8 +36,6 @@ void main() {
   renderLoop.addStage(stage);
   juggler = renderLoop.juggler;
  
-  
- 
   resourceManager = new ResourceManager();
   Grafix.addResource(resourceManager);
   Sounds.addResource(resourceManager);
