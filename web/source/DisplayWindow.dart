@@ -17,11 +17,12 @@ class DisplayWindow {
   updateAbosultePos(Player player) {
     // update x,y;
     WorldMap worldMap = Game.worldMap;
-    if (this.x - player.x > 2 * this.width / 3) {
-      double right = math.max(-worldMap.width + this.width, player.x + 2 * this.width / 3);
+    
+    if (player.x - this.x > 2 * this.width / 3) {
+      double right = math.min(worldMap.width - this.width, player.x - 2 * this.width / 3);
       this.x = right;
-    } else if (this.x - player.x < this.width / 3) {
-      double left = math.min(0.0, player.x + this.width / 3);
+    } else if (player.x - this.x < this.width / 3) {
+      double left = math.max(0.0, player.x - this.width / 3);
       this.x = left;
     }
   }

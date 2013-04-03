@@ -8,7 +8,7 @@ class WorldMap extends Object implements Animatable {
   double cloudMovingSpeed = 20.0;
   double duration;
   
-  static double fixedLeastHeight = - Statics.WORLD_HEIGHT + Statics.TILE_SIZE;
+  static double fixedLeastHeight = Statics.WORLD_HEIGHT - Statics.TILE_SIZE;
   List<int> terrainHeights = new List<int>();
   List<Bitmap> tileDirts = new List<Bitmap>();
   List<Bitmap> tileOceans = new List<Bitmap>();
@@ -30,14 +30,14 @@ class WorldMap extends Object implements Animatable {
     for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
       Bitmap tileDirt = new Bitmap(Grafix.resourceManager.
                                    getBitmapData("tiledirt"));
-      tileDirt.pivotX = - i * Statics.TILE_SIZE;
-      tileDirt.pivotY = - (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE);
+      tileDirt.x = i * Statics.TILE_SIZE;
+      tileDirt.y = (Statics.BACKGROUND_HEIGHT - Statics.TILE_SIZE);
       addChild(tileDirt);
       tileDirts.add(tileDirt);
       Bitmap tileOcean = new Bitmap(Grafix.resourceManager.
                                     getBitmapData("tileocean"));
-      tileOcean.pivotX = - i * Statics.TILE_SIZE;
-      tileOcean.pivotY = - (Statics.BACKGROUND_HEIGHT - 2 * Statics.TILE_SIZE);
+      tileOcean.x = i * Statics.TILE_SIZE;
+      tileOcean.y = (Statics.BACKGROUND_HEIGHT - 2 * Statics.TILE_SIZE);
       addChild(tileOcean);
       tileOceans.add(tileOcean);
     }
@@ -59,14 +59,13 @@ class WorldMap extends Object implements Animatable {
     }
     
     // background tiles
-    double offset = Statics.TILE_SIZE - Game.displayWindow.x + (Game.displayWindow.x / Statics.TILE_SIZE).toInt() * Statics.TILE_SIZE;
+    double offset = -Game.displayWindow.x + (Game.displayWindow.x / Statics.TILE_SIZE).toInt() * Statics.TILE_SIZE;
     for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
-      print(i);
       Bitmap tileDirt = tileDirts.elementAt(i);
-      tileDirt.pivotX = offset;
+      tileDirt.x = offset;
       Bitmap tileOcean = tileOceans.elementAt(i);
-      tileOcean.pivotX = offset;
-      offset -= Statics.TILE_SIZE;
+      tileOcean.x = offset;
+      offset += Statics.TILE_SIZE;
     }
     return true;
   }

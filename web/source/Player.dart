@@ -12,8 +12,8 @@ class Player extends Object implements Animatable {
   Player() {
     
     playerBitmap = new Bitmap(playerData);
-    playerBitmap.pivotX = x = - 100.0;
-    playerBitmap.pivotY = y = WorldMap.fixedLeastHeight + 
+    playerBitmap.x = x = 100.0;
+    playerBitmap.y = y = WorldMap.fixedLeastHeight - 
                               playerBitmap.height;
     print("${x} ${y}");
     speedX = 0.0;
@@ -33,13 +33,13 @@ class Player extends Object implements Animatable {
     }
     
     // udpate y
-    if (y > WorldMap.fixedLeastHeight + playerBitmap.height ||
+    if (y < WorldMap.fixedLeastHeight - playerBitmap.height ||
         speedY == Statics.SPEED_Y_INITIAL) {
       y += speedY * time;
       changed = true;
       speedY += Statics.SPEED_Y_ACCELERATE;
-      if (y <= WorldMap.fixedLeastHeight + playerBitmap.height) {
-        y = WorldMap.fixedLeastHeight + playerBitmap.height;
+      if (y >= WorldMap.fixedLeastHeight - playerBitmap.height) {
+        y = WorldMap.fixedLeastHeight - playerBitmap.height;
         speedY = 0.0;
         if (state == Statics.PLAYER_STATE_JUMP) {
           onStand();
@@ -48,20 +48,20 @@ class Player extends Object implements Animatable {
     }
     
     if (changed) {
-      playerBitmap.pivotX = (x - Game.displayWindow.x).toInt();
-      playerBitmap.pivotY = y.toInt();
+      playerBitmap.x = (x - Game.displayWindow.x).toInt();
+      playerBitmap.y = y.toInt();
     }
     
     Game.displayWindow.updateAbosultePos(this);
   }
   
   onLeft() {
-    speedX = Statics.SPEED_X;
+    speedX = -Statics.SPEED_X;
     state = Statics.PLAYER_STATE_MOVE;
   }
   
   onRight() {
-    speedX = - Statics.SPEED_X;
+    speedX = Statics.SPEED_X;
     state = Statics.PLAYER_STATE_MOVE;
   }
   

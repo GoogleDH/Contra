@@ -30,9 +30,12 @@ class Bullet extends Object implements Animatable {
       ..duration = duration;
       
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
-    bitmap.pivotX = bitmap.width / 2;
-    bitmap.pivotY = bitmap.height / 2;
-
+    bitmap
+      ..pivotX = bitmap.width / 2
+      ..pivotY = bitmap.height / 2
+      ..scaleX = 0.5
+      ..scaleY = 0.5;
+    
     this.addChild(bitmap);
     juggler.add(this);
   }
@@ -46,12 +49,12 @@ class Bullet extends Object implements Animatable {
       speedX = 0.0;
     
     bitmap.rotation = math.atan(speedY / speedX);
-    bitmap.x = x;
+    bitmap.x = (x - Game.displayWindow.x).toInt();
     bitmap.y = y;
   }
   
   bool isDead() {
-    return false;
+    return y >= (Statics.WORLD_HEIGHT - Statics.TILE_SIZE);
   }
 }
 
