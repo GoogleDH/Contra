@@ -60,6 +60,18 @@ class Robot extends Object implements Animatable {
     juggler.add(this);
   }
   
+  changeDirection(int directioin){
+    if(direction == 0){
+      // go right
+      speedX = 50.0;
+      setCurrentAnimation(right_run);
+    } else {
+      // go left
+      speedX = -50.0;
+      setCurrentAnimation(left_run);
+    }
+  }
+  
   double get height => max_height;
   double get width => max_width;
   
@@ -95,6 +107,22 @@ class Robot extends Object implements Animatable {
 
   double shouldTurnAround = 0.0;
 
+  DateTime lastFireTimestamp;
+  
+  checkIfNeedFire(){
+    var now = new DateTime.now();
+    if (lastFireTimestamp != null
+        && now.millisecondsSinceEpoch - lastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*5) {
+      return;
+    }
+    lastFireTimestamp = now;
+
+    if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.5) {
+      Game.bulletManager.robotFired(this);
+      Sounds.playSoundEffect("robot_fire");
+    }
+  }
+  
   bool advanceTime(num time) {
     var oldX = x;
     var oldY = y;
@@ -102,10 +130,8 @@ class Robot extends Object implements Animatable {
     
     current.update(time);
     
-    if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.97) {
-      Game.bulletManager.robotFired(this);
-      Sounds.playSoundEffect("robot_fire");
-    }
+    checkIfNeedFire();
+    
     
     Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
     

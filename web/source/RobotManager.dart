@@ -13,8 +13,12 @@ class RobotManager implements Animatable {
 
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.995) {
-    //  createNewRobot(300.0, WorldMap.fixedLeastHeight - 20);
+      createNewRobot(Statics.BACKGROUND_WIDTH + Game.displayWindow.x + 100, WorldMap.fixedLeastHeight - 20, 1);
     }
+    if(random.nextDouble() < 0.005) {
+      createNewRobot(Game.displayWindow.x - 100, WorldMap.fixedLeastHeight - 20, 0);
+    }
+    
     destroyDeadRobot();
   }
 
@@ -38,17 +42,10 @@ class RobotManager implements Animatable {
   }
 
   // absolute x, y
-  createNewRobot(double x, double y) {
-
-/*    var now = new DateTime.now();
-    if (lastCreateTimestamp != null
-        && now.millisecondsSinceEpoch - lastCreateTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL) {
-      return;
-    }
-    lastCreateTimestamp = now;
-*/
+  createNewRobot(double x, double y, int direction) {
     print("create robot");
     Robot robot = new Robot(x, y);
+    robot.changeDirection(direction);
     robots.add(robot);
     layer.addChild(robot);
   }
