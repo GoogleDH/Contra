@@ -35,6 +35,7 @@ class KeyboardHandler implements Animatable {
     for (var code in keyCodes) {
       switch (code) {
         case Statics.KEY_FIRE:  player.onFire();   break;
+        case Statics.KEY_BOMB:  player.onBomb();   break;
         case Statics.KEY_RIGHT: player.onRight();  break;
         case Statics.KEY_LEFT:  player.onLeft();   break;
         case Statics.KEY_DOWN:  player.onCrouch(); break;

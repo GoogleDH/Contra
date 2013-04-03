@@ -7,7 +7,8 @@ class Statics {
   static const int KEY_LEFT = 37;
   static const int KEY_RIGHT = 39;
   static const int KEY_JUMP = 32;
-  static const int KEY_FIRE = 70;
+  static const int KEY_FIRE = 65;
+  static const int KEY_BOMB = 70;
   static const int KEY_CREATE_ENEMY = 74;
 
 

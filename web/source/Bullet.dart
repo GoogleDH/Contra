@@ -15,9 +15,9 @@ class Bullet extends Object implements Animatable {
   Bitmap bitmap;
 
   Bullet(double x, double y,
-         double speedX, double speedY,
-         double accelerationX, accelerationY,
-         bool hostile, int duration) {
+      double speedX, double speedY,
+      double accelerationX, accelerationY,
+      bool hostile, int duration) {
     this.direction = speedX >= 0 ? 1 : -1;
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
     this
@@ -45,6 +45,40 @@ class Bullet extends Object implements Animatable {
 
     this.addChild(bitmap);
     juggler.add(this);
+  }
+
+  Bullet.gun(double x, double y,
+         double speedX, double speedY,
+         double accelerationX, accelerationY,
+         bool hostile, int duration) {
+    this.direction = speedX >= 0 ? 1 : -1;
+    bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bullet1Right" : "bullet1Left"));
+    this
+      ..x = x
+      ..y = y
+      ..speedX = speedX
+      ..speedY = -speedY
+      ..accelerationX = accelerationX
+      ..accelerationY = -accelerationY
+      ..hostile = hostile
+      ..duration = duration;
+    
+    if(!hostile && Game.keyboardHandler.isPressingUpKey()) {
+      this.speedY -= 500.0;
+    }
+    if(!hostile && Game.keyboardHandler.isPressingDownKey()) {
+      this.speedY += 300.0;
+    }
+
+    bitmap
+      ..x = x - Game.displayWindow.x
+      ..y = y
+      ..scaleX = 2.0
+      ..scaleY = 2.0;
+
+    this.addChild(bitmap);
+    juggler.add(this);
+    advanceTime(0.0001);
   }
 
   num get pivotX{
