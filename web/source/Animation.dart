@@ -5,13 +5,17 @@ class Animation {
   int currentIndex;
   double duration;
   Object obj;
-  var name;
+  var cb;
   static double FOREVER = -1.0;
 
   Animation(Object obj) {
     currentIndex = 0;
     duration = 0.0;
     this.obj = obj;
+  }
+  
+  setCbOnFinish(void cb()) {
+    this.cb = cb;
   }
 
   start() {
@@ -45,6 +49,9 @@ class Animation {
       stop();
       if (currentIndex + 1 == frames.length) {
         currentIndex = 0;
+        if (cb != null) {
+          cb();
+        }
       } else {
         currentIndex = currentIndex + 1;
       }

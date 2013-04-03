@@ -4,6 +4,8 @@ class Robot extends Object implements Animatable {
   
   Animation left_run;
   Animation right_run;
+  Animation left_bleed;
+  Animation right_bleed;
   
   Animation current;
   
@@ -17,6 +19,8 @@ class Robot extends Object implements Animatable {
   Robot(double x, double y) {
     left_run = new Animation(this);
     right_run = new Animation(this);
+    left_bleed = new Animation(this);
+    right_bleed = new Animation(this);
     
     left_run.addFrame(new AnimationFrame("robot_leftmove1", 0.2));
     left_run.addFrame(new AnimationFrame("robot_leftmove2", 0.2));
@@ -27,6 +31,14 @@ class Robot extends Object implements Animatable {
     right_run.addFrame(new AnimationFrame("robot_rightmove2", 0.2));
     right_run.addFrame(new AnimationFrame("robot_rightmove3", 0.2));
     right_run.addFrame(new AnimationFrame("robot_rightmove2", 0.2));
+    
+    left_bleed.addFrame(new AnimationFrame("robot_leftblood1", 0.1));
+    left_bleed.addFrame(new AnimationFrame("robot_leftblood2", 0.1));
+    left_bleed.addFrame(new AnimationFrame("robot_leftblood3", 0.1));
+    
+    right_bleed.addFrame(new AnimationFrame("robot_rightblood1", 0.1));
+    right_bleed.addFrame(new AnimationFrame("robot_rightblood2", 0.1));
+    right_bleed.addFrame(new AnimationFrame("robot_rightblood3", 0.1));
     
     var animations = [left_run, right_run];
     
@@ -54,6 +66,11 @@ class Robot extends Object implements Animatable {
   void setCurrentAnimation(Animation animation) {
     if (current == animation) {
       return;
+    }
+    if (isDead) {
+      if (animation != left_bleed && animation != right_bleed) {
+        return;
+      }
     }
     if (current != null) {
       current.stop();
@@ -151,6 +168,16 @@ class Robot extends Object implements Animatable {
     current.getBitmap().x = x - Game.displayWindow.x;
     current.getBitmap().y = y;
 
+  }
+  
+  Bleed(void cb()) {
+    if (speedX > 0) {
+      right_bleed.setCbOnFinish(cb);
+      setCurrentAnimation(right_bleed);
+    } else {
+      left_bleed.setCbOnFinish(cb);
+      setCurrentAnimation(left_bleed);
+    }
   }
 
   setDead() {
