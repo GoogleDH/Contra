@@ -149,7 +149,7 @@ class Bullet extends Object implements Animatable {
     } else {
       for (Robot robot in Game.robotManager.getAllRobots()) {
         if (this.collision(robot) > 0) {
-          robot.setDead();
+          robot.hurt();
           this.dead = true;
           print("one robot killed.");
           break;

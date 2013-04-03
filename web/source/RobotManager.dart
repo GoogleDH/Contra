@@ -29,8 +29,12 @@ class RobotManager implements Animatable {
       if (robot.isDead) {
         robotsToRemove.add(robot);
         robot.Bleed(() {
+          try{
           layer.removeChild(robot);
           robot.destroy();
+          }catch(e){
+            print(e);
+          }
         });
       }
     }
