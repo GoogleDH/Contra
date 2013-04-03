@@ -22,6 +22,7 @@ part 'source/Statics.dart';
 part 'source/KeyboardHandler.dart';
 part 'source/Tile.dart';
 part 'source/TouchManager.dart';
+part 'source/Sounds.dart';
 
 ResourceManager resourceManager;
 RenderLoop renderLoop;
@@ -35,6 +36,7 @@ void main() {
 
   resourceManager = new ResourceManager();
   Grafix.addResource(resourceManager);
+  Sounds.addResource(resourceManager);
   
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;

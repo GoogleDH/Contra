@@ -13,7 +13,7 @@ class RobotManager implements Animatable {
 
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.995) {
-     // createNewRobot();
+      // createNewRobot();
     }
     destroyDeadRobot();
   }
