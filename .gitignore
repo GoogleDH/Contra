@@ -1,5 +1,9 @@
+*.lock
 .DS_Store
 packages/
 web/packages
 web/source/packages
 web/images/packages
+web/contra.dart.js
+web/contra.dart.js.map
+web/contra.dart.js.deps
