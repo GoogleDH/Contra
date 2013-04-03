@@ -112,6 +112,7 @@ class Player extends Object implements Animatable {
     var oldY = y;
     
     current.update(time);
+    Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
     
     // update x
     if (state == Statics.PLAYER_STATE_MOVE) {
@@ -125,9 +126,7 @@ class Player extends Object implements Animatable {
     }
 
     // udpate y
-    Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
     if(somethingToStandOn == null ) {
-      print("in the air");
       // we are in the air, update Y according to speedY
       speedY += Statics.SPEED_Y_ACCELERATE;
       y += speedY;
@@ -136,14 +135,16 @@ class Player extends Object implements Animatable {
         y = WorldMap.fixedLeastHeight - height;
       }
     } else {
-      if(speedY >= 0){ 
+      if(speedY > 0){ 
         // falling
         speedY = 0.0;
         y = somethingToStandOn.y - height;
-      } else {
+      } else if(speedY < 0){
         // ascending
-        print("Branch 3");
         y += speedY;
+      } else {
+        // standing
+        // do nothing?
       }
     } 
     
