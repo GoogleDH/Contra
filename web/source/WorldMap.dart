@@ -60,13 +60,18 @@ class WorldMap extends Object implements Animatable {
           String c = terrain['tiles'][j][i];
           switch (c) {
             case '0': 
+              //blank tile
               break;
             case '1':
+              //brick
               addBrick_(i, j);
               break;
             case '2':
+              //enemy
               createRobot_(i, j);
               break;
+            case '3':
+              addTransparentBrick_(i, j);
           }
         }
       }
@@ -79,6 +84,11 @@ class WorldMap extends Object implements Animatable {
   
   addBrick_(int i, int j){
     Tile brick = new Tile.brick(i, j);
+    addChild(brick);
+    bricks.add(brick);
+  } 
+  addTransparentBrick_(int i, int j){
+    Tile brick = new Tile.transparentBrick(i, j);
     addChild(brick);
     bricks.add(brick);
   }
