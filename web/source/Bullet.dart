@@ -78,13 +78,13 @@ class Bullet extends Object implements Animatable {
       return true;
     }
     if (hostile) {
-      if (this.collision(Game.player)) {
+      if (this.collision(Game.player) > 0) {
         Game.player.setDead();
         this.dead = true;
       }
     } else {
       for (Robot robot in Game.robotManager.getAllRobots()) {
-        if (this.collision(robot)) {
+        if (this.collision(robot) > 0) {
           robot.setDead();
           this.dead = true;
           print("one robot killed.");
@@ -93,7 +93,7 @@ class Bullet extends Object implements Animatable {
       }
     } 
     
-    if(Collision.isCollidedWithTerrain(this)){
+    if(Collision.isCollidedWithTerrain(this) > 0){
       dead = true;
     }
   }

@@ -16,8 +16,10 @@ class Statics {
   static const double BACKGROUND_WIDTH = 800.0;
   static const double BACKGROUND_HEIGHT = 480.0;
   static const double SPEED_X = 280.0;
-  static const double SPEED_Y_INITIAL = -600.0;
-  static const double SPEED_Y_ACCELERATE = 30.0;
+  static const double SPEED_X_ACCELERATE = 3.0;
+  static const double SPEED_X_MAX = 450.0;
+  static const double SPEED_Y_INITIAL = -15.0;
+  static const double SPEED_Y_ACCELERATE = 1.0;
 
   static const int PLAYER_STATE_STAND = 0;
   static const int PLAYER_STATE_MOVE = 1;

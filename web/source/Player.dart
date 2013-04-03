@@ -39,7 +39,7 @@ class Player extends Object implements Animatable {
     setCurrentAnimation(right_stand);
     
     x = current.getBitmap().x = 100.0;
-    y = current.getBitmap().y = WorldMap.fixedLeastHeight - height;
+    y = current.getBitmap().y = 0.0;
   
     speedX = 0.0;
     speedY = 0.0;
@@ -70,10 +70,11 @@ class Player extends Object implements Animatable {
 
   bool advanceTime(num time) {
     // update player state and animation, x,y
-
+    var oldX = x;
+    var oldY = y;
     // update x
     if (state == Statics.PLAYER_STATE_MOVE) {
-      x += speedX * time;
+      x += speedX * time;;
       if (x < 0) {
         x = 0.0;
       }
@@ -83,20 +84,38 @@ class Player extends Object implements Animatable {
     }
 
     // udpate y
-    if (y <= 0) {
-      y = 0.1;
-      speedY = Statics.SPEED_Y_ACCELERATE;
-    } else if (y < WorldMap.fixedLeastHeight - height ||
-        speedY == Statics.SPEED_Y_INITIAL) {
-      y += speedY * time;
-      speedY += Statics.SPEED_Y_ACCELERATE;
-    }
-    if (y >= WorldMap.fixedLeastHeight - height) {
-      y = WorldMap.fixedLeastHeight - height;
-      speedY = 0.0;
-      if (state == Statics.PLAYER_STATE_JUMP) {
-        onStand();
+    speedY += Statics.SPEED_Y_ACCELERATE;
+    Tile somethingToStandOn = Collision.hasSomethingToStandOn(this);
+    if(somethingToStandOn == null ) {
+      // we are in the air, update Y according to speedY
+      y += speedY;
+      if(y > WorldMap.fixedLeastHeight - height){
+        speedY = 0.0;
+        y = WorldMap.fixedLeastHeight - height;
       }
+    } else {
+      if(speedY >= 0){ 
+        // falling
+        speedY = 0.0;
+        y = somethingToStandOn.y - height;
+      } else {
+        // ascending
+        print("Branch 3");
+        y += speedY;
+      }
+    } 
+    
+    int collision = Collision.isCollidedWithTerrain(this);
+    if(collision == 1 || collision == 3){
+      //collided on x, reset x
+      x = oldX;
+    }
+    if(collision >= 2){
+      // prevent from going into wall, in x and y direction
+      if(oldY < y){
+        speedY = 0.0;
+      }
+      y = oldY;
     }
     
     current.getBitmap().x = x - Game.displayWindow.x;
@@ -110,7 +129,14 @@ class Player extends Object implements Animatable {
     if (state == Statics.PLAYER_STATE_CROUCH) {
       return;
     }
-    speedX = -Statics.SPEED_X;
+    if(speedX >= 0) {
+      speedX = -Statics.SPEED_X;
+    } else {
+      speedX -= Statics.SPEED_X_ACCELERATE;
+      if(speedX < -Statics.SPEED_X_MAX)
+        speedX = -Statics.SPEED_X_MAX;
+    }
+    
     state = Statics.PLAYER_STATE_MOVE;
     setCurrentAnimation(left_run);
   }
@@ -120,17 +146,26 @@ class Player extends Object implements Animatable {
     if (state == Statics.PLAYER_STATE_CROUCH) {
       return;
     }
-    speedX = Statics.SPEED_X;
+    if(speedX <= 0) {
+      speedX = Statics.SPEED_X;
+    } else {
+      speedX += Statics.SPEED_X_ACCELERATE;
+      if(speedX > Statics.SPEED_X_MAX)
+        speedX = Statics.SPEED_X_MAX;
+    }
     state = Statics.PLAYER_STATE_MOVE;
     setCurrentAnimation(right_run);
   }
 
   onJump() {
-    if (this.speedY != 0 || state == Statics.PLAYER_STATE_CROUCH) {
+    Tile s = Collision.hasSomethingToStandOn(this);
+    if (s == null || state == Statics.PLAYER_STATE_CROUCH) {
       return;
     }
-    speedY = Statics.SPEED_Y_INITIAL;
-
+    var sX = speedX == 0 ? Statics.SPEED_X :( speedX > 0 ? speedX : -speedX);
+    speedY = Statics.SPEED_Y_INITIAL - (sX - 280) * .029411765;
+    //speedY = Statics.SPEED_Y_INITIAL;
+    print("speedY : $speedY");
     if (state != Statics.PLAYER_STATE_MOVE) {
       state = Statics.PLAYER_STATE_JUMP;
     }
@@ -163,6 +198,10 @@ class Player extends Object implements Animatable {
     isDead = true;
     state = Statics.PLAYER_STATE_DEAD;
     setCurrentAnimation(dead);
+  }
+  
+  String toString(){
+    return "Player: "+super.toString();
   }
 }
 
