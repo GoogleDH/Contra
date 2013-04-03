@@ -34,25 +34,8 @@ void main() {
   renderLoop.addStage(stage);
 
   resourceManager = new ResourceManager();
-  resourceManager.addBitmapData("background", "images/background.png");
-  resourceManager.addBitmapData("tiledirt", "images/tiledirt.png");
-  resourceManager.addBitmapData("tileocean", "images/tileocean.png");
-  resourceManager.addBitmapData("bulletleft", "images/bulletleft.png");
-  resourceManager.addBitmapData("bulletright", "images/bulletright.png");
-  resourceManager.addBitmapData("player_dead", "images/player_die.png");
-  resourceManager.addBitmapData("player_leftcrouch", "images/player_leftcrouch.png");
-  resourceManager.addBitmapData("player_rightcrouch", "images/player_rightcrouch.png");
-  resourceManager.addBitmapData("player_leftstand", "images/player_leftstand.png");
-  resourceManager.addBitmapData("player_rightstand", "images/player_rightstand.png");
-  resourceManager.addBitmapData("player_leftrun1", "images/player_leftrun1.png");
-  resourceManager.addBitmapData("player_leftrun2", "images/player_leftrun2.png");
-  resourceManager.addBitmapData("player_leftrun3", "images/player_leftrun3.png");
-  resourceManager.addBitmapData("player_rightrun1", "images/player_rightstand.png");
-  resourceManager.addBitmapData("player_rightrun2", "images/player_rightstand.png");
-  resourceManager.addBitmapData("player_rightrun3", "images/player_rightstand.png");
-  resourceManager.addBitmapData("robot", "images/chicken.png");
-  resourceManager.addBitmapData("brick", "images/brick.png");
-
+  Grafix.addResource(resourceManager);
+  
   resourceManager.load().then((res){
     Grafix.resourceManager = resourceManager;
     Game game = new Game(stage, juggler);
