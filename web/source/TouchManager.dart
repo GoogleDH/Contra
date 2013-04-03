@@ -22,16 +22,24 @@ class TouchManager {
   
   void onTouchBegin(TouchEvent touchEvent) {
     print("touch begin ${touchEvent.stageX} ${touchEvent.stageY}");
-    DisplayWindow displayWindow = Game.displayWindow;
+    
     for (Bird bird in Game.birdManager.getAllBirds()) {
-      double x = touchEvent.stageX + displayWindow.x;
-      double y = touchEvent.stageY + displayWindow.y;
-      print("touch world ${x} ${y}");
-      print("bird x y is ${bird.x} ${bird.y}");
-      if (x > bird.x && x < bird.x + bird.width && y > bird.y && y < bird.height) {
+      if (isTouched(touchEvent, bird)) {
         bird.setDead();
       }
     }
+    for (Bullet bullet in Game.bulletManager.bullets) {
+      if (isTouched(touchEvent, bullet)) {
+        bullet.dead = true;
+      }
+    }
+  }
+  
+  bool isTouched(TouchEvent touchEvent, Object object) {
+    DisplayWindow displayWindow = Game.displayWindow;
+    double x = touchEvent.stageX + displayWindow.x;
+    double y = touchEvent.stageY + displayWindow.y;
+    return x > object.x && x < object.x + object.width && y > object.y && y < object.height;
   }
 
   void onTouchEnd(TouchEvent touchEvent) {

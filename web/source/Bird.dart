@@ -27,10 +27,10 @@ class Bird extends Object implements Animatable {
     left_run.addFrame(new AnimationFrame("robot_leftmove3", 0.2));
     left_run.addFrame(new AnimationFrame("robot_leftmove2", 0.2));
     
-    right_run.addFrame(new AnimationFrame("robot_rightmove1", 0.2));
-    right_run.addFrame(new AnimationFrame("robot_rightmove2", 0.2));
-    right_run.addFrame(new AnimationFrame("robot_rightmove3", 0.2));
-    right_run.addFrame(new AnimationFrame("robot_rightmove2", 0.2));
+    right_run.addFrame(new AnimationFrame("helicopter1", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter2", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter3", 0.1));
+    right_run.addFrame(new AnimationFrame("helicopter4", 0.1));
     
     left_bleed.addFrame(new AnimationFrame("robot_leftblood1", 0.1));
     left_bleed.addFrame(new AnimationFrame("robot_leftblood2", 0.1));

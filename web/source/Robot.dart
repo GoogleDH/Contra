@@ -66,6 +66,8 @@ class Robot extends Object implements Animatable {
     hp --;
     if(hp <= 0){
       isDead = true;
+    } else {
+      Sounds.playSoundEffect("robot_dead");
     }
   }
   
