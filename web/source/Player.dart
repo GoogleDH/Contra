@@ -78,8 +78,8 @@ class Player extends Object implements Animatable {
       if (x < 0) {
         x = 0.0;
       }
-      if (x > Game.worldMap.width - width) {
-        x = Game.worldMap.width - width;
+      if (x > Game.worldMap.width - this.width) {
+        x = Game.worldMap.width - this.width;
       }
     }
 
@@ -104,7 +104,8 @@ class Player extends Object implements Animatable {
         y += speedY;
       }
     } 
-    
+
+    Game.displayWindow.updateAbosultePos(this);
     int collision = Collision.isCollidedWithTerrain(this);
     if(collision == 1 || collision == 3){
       //collided on x, reset x
@@ -121,7 +122,6 @@ class Player extends Object implements Animatable {
     current.getBitmap().x = x - Game.displayWindow.x;
     current.getBitmap().y = y;
 
-    Game.displayWindow.updateAbosultePos(this);
   }
 
   onLeft() {
