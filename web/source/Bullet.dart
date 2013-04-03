@@ -31,6 +31,8 @@ class Bullet extends Object implements Animatable {
       
     bitmap = new Bitmap(Grafix.resourceManager.getBitmapData(direction == 1 ? "bulletright" : "bulletleft"));
     bitmap
+      ..x = x
+      ..y = y
       ..pivotX = bitmap.width / 2
       ..pivotY = bitmap.height / 2
       ..scaleX = 0.5
