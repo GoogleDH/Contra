@@ -16,12 +16,6 @@ class BulletManager implements Animatable {
   bool advanceTime(num time) {
     HashSet<Bullet> bulletsToRemove = new HashSet<Bullet>();
     for (Bullet bullet in bullets) {
-      // bullet hit anyone?
-      if (bullet.hostile) {
-
-      } else {
-
-      }
       //move forward other bullets
       if(bullet.isDead()) {
         layer.removeChild(bullet);
@@ -30,6 +24,14 @@ class BulletManager implements Animatable {
       }
     }
     bullets.removeAll(bulletsToRemove);
+    
+    // check if the bomb has cooled down
+    var now = new DateTime.now();
+    if (playerLastBombTimestamp == null
+        || now.millisecondsSinceEpoch - playerLastBombTimestamp.millisecondsSinceEpoch > Statics.MIN_FIRE_INTERVAL*10) {
+      Game.hudManager.setBombStatus(false);
+    }
+    
   }
 
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
@@ -81,6 +83,8 @@ class BulletManager implements Animatable {
         && now.millisecondsSinceEpoch - playerLastBombTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*10) {
       return;
     }
+    Game.hudManager.setBombStatus(true);
+    
     Sounds.playSoundEffect("bomb");
     playerLastBombTimestamp = now;
 

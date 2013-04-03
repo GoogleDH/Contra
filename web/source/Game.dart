@@ -23,6 +23,8 @@ class Game extends Sprite {
   static DisplayWindow displayWindow;
   static KeyboardHandler keyboardHandler;
   static TouchManager touchManager;
+  static HUDManager hudManager;
+  static Game game;
 
   Game(Stage stage, Juggler juggler) {
     started = false;
@@ -50,6 +52,7 @@ class Game extends Sprite {
   
 
   start() {
+    game = this;
     print("start");
     if (started) {
       return;
@@ -72,6 +75,7 @@ class Game extends Sprite {
     robotManager = new RobotManager(_gameLayer);  
     bulletManager = new BulletManager(_gameLayer);
     keyboardHandler = new KeyboardHandler(player);
+    hudManager = new HUDManager(_interfaceLayer);
     touchManager = new TouchManager();
     
     juggler.add(robotManager);

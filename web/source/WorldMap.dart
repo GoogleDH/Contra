@@ -80,7 +80,7 @@ class WorldMap extends Object implements Animatable {
   
   createRobot_(int i, int j) {
     try{
-      Game.robotManager.createNewRobot(i * 40.0, j * 40.0);
+      Game.robotManager.createNewRobot(i * 40.0, j * 40.0, 0);
     }catch(e){
       print("Error in create robot $e");
     }

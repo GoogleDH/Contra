@@ -23,6 +23,7 @@ part 'source/KeyboardHandler.dart';
 part 'source/Tile.dart';
 part 'source/TouchManager.dart';
 part 'source/Sounds.dart';
+part 'source/HUDManager.dart';
 
 ResourceManager resourceManager;
 Stage stage;
