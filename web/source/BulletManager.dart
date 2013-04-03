@@ -69,7 +69,7 @@ class BulletManager implements Animatable {
         500.0 * player.direction + player.speedX,
         0.0,
         -10.0 * player.direction,
-        -0.0,
+        0.0,
         false, 1);
     bullets.add(bullet);
     layer.addChild(bullet);

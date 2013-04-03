@@ -85,9 +85,18 @@ class Bullet extends Object implements Animatable {
     
     if(!hostile && Game.keyboardHandler.isPressingUpKey()) {
       this.speedY -= 500.0;
+      if (this.speedX < 0) {
+        var theta = math.atan(this.speedY / this.speedX);
+        this.y -= this.width * math.sin(theta);
+        var l = this.width * math.tan(theta);
+        this.x += l * math.sin(theta) / 2;
+      }
     }
     if(!hostile && Game.keyboardHandler.isPressingDownKey()) {
       this.speedY += 300.0;
+      if (this.speedX < 0) {
+        this.y -= this.width * math.sin(math.atan(this.speedY / this.speedX));
+      }
     }
 
     this.addChild(bitmap);
