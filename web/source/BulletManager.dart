@@ -35,15 +35,20 @@ class BulletManager implements Animatable {
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
 
   robotFired(Robot robot) {
-
+    var speedX = robot.x - Game.player.x;
+    var speedY = robot.y - Game.player.y;
+    //uniform speed
+    var ratio = 100 / math.sqrt(speedX * speedX + speedY * speedY);
+    speedX = speedX * ratio * -1;
+    speedY = speedY * ratio;
     var direction = robot.speedX >= 0 ? 1 : -1; // TODO
     Bullet bullet = new Bullet.gun(
-        direction == 1 ? robot.x + robot.width : robot.x,
-        robot.y + robot.height / 3.0,
-        200.0 * direction,
-        0.0,
-        0.0 * direction,
-        0.0,
+        /* x */direction == 1 ? robot.x + robot.width : robot.x,
+        /* y */robot.y + robot.height / 3.0,
+        /* speedX */speedX,
+        /* speedY */speedY,
+        /* accelerationX*/0.0 * direction,
+        /* accelerationY*/0.0,
         true, 5);
     bullets.add(bullet);
     layer.addChild(bullet);
