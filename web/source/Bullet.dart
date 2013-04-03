@@ -174,6 +174,15 @@ class Bullet extends Object implements Animatable {
           break;
         }
       }
+      
+      //also if it is a bomb, we can kill enemy's bullets as well
+      if (type == 0) {
+        for(Bullet b in Game.bulletManager.bullets){
+           if(b.hostile && b.collision(this) > 0){
+              b.dead = true; 
+           }
+        }
+      }
     } 
     
     if(Collision.isCollidedWithTerrain(this, oldX, oldY) > 0){
