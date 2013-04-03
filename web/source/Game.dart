@@ -32,6 +32,7 @@ class Game extends Sprite {
     addChild(_backgroundLayer);
     addChild(_gameLayer);
     addChild(_interfaceLayer);
+    _interfaceLayer.addTo(stage);
 
     // fps
     fpsField = new TextField();
