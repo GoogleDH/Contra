@@ -59,6 +59,8 @@ class Bullet extends Object implements Animatable {
   }
   
   bool advanceTime(num time) {
+    var oldX = x;
+    var oldY = y;
     if (bitmap.scaleX < 0.5) {
       bitmap.scaleX += 0.02;
       bitmap.scaleY += 0.02;
@@ -93,7 +95,7 @@ class Bullet extends Object implements Animatable {
       }
     } 
     
-    if(Collision.isCollidedWithTerrain(this) > 0){
+    if(Collision.isCollidedWithTerrain(this, oldX, oldY) > 0){
       dead = true;
     }
   }
