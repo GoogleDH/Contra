@@ -13,7 +13,7 @@ class RobotManager implements Animatable {
 
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.995) {
-     // createNewRobot();
+      createNewRobot(300.0, WorldMap.fixedLeastHeight - 20);
     }
     destroyDeadRobot();
   }
@@ -45,7 +45,7 @@ class RobotManager implements Animatable {
     lastCreateTimestamp = now;
 
     print("create robot");
-    Robot robot = new Robot(0, x, y);
+    Robot robot = new Robot(x, y);
     robots.add(robot);
     layer.addChild(robot);
   }

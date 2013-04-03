@@ -4,24 +4,24 @@ class Animation {
   List<AnimationFrame> frames = new List<AnimationFrame>();
   int currentIndex;
   double duration;
-  Player player;
+  Object obj;
   var name;
   static double FOREVER = -1.0;
 
-  Animation(Player player) {
+  Animation(Object obj) {
     currentIndex = 0;
     duration = 0.0;
-    this.player = player;
+    this.obj = obj;
   }
 
   start() {
-    player.addChild(frames[0].bitmap);
+    obj.addChild(frames[0].bitmap);
     currentIndex = 0;
     duration = 0.0;
   }
 
   stop() {
-    player.removeChild(frames[currentIndex].bitmap);
+    obj.removeChild(frames[currentIndex].bitmap);
   }
 
   addFrame(AnimationFrame frame) {
@@ -40,19 +40,19 @@ class Animation {
     }
 
     if (duration >= frame.duration) {
+      var x = frames[currentIndex].bitmap.x;
+      var y = frames[currentIndex].bitmap.y;
       stop();
-      // Future.wait(removed).then((_) {
       if (currentIndex + 1 == frames.length) {
         currentIndex = 0;
       } else {
         currentIndex = currentIndex + 1;
       }
-      frames[currentIndex].bitmap.x = player.x;
-      frames[currentIndex].bitmap.y = player.y;
+      frames[currentIndex].bitmap.x = x;
+      frames[currentIndex].bitmap.y = y;
 
-      player.addChild(frames[currentIndex].bitmap);
+      obj.addChild(frames[currentIndex].bitmap);
       duration = duration - frame.duration;
-      // });
     }
   }
 
@@ -60,7 +60,7 @@ class Animation {
     return frames[currentIndex].bitmap;
   }
 }
-
+  
 class AnimationFrame {
   Bitmap bitmap;
   double duration;
