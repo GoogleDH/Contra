@@ -64,10 +64,17 @@ class WorldMap extends Object implements Animatable {
             case '1':
               addBrick_(i, j);
               break;
+            case '2':
+              createRobot_(i, j);
+              break;
           }
         }
       }
     });
+  }
+  
+  createRobot_(int i, int j) {
+    Game.robotManager.createNewRobot(i * 40.0, j * 40.0);
   }
   
   addBrick_(int i, int j){
