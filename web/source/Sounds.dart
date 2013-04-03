@@ -11,6 +11,7 @@ class Sounds {
     resourceManager.addSound("rifle", "sounds/rifle.wav");
     resourceManager.addSound("robot_dead", "sounds/robot_dead.wav");
     resourceManager.addSound("robot_fire", "sounds/robot_fire.wav");
+    resourceManager.addSound("explosion", "sounds/explosion.wav");
     Sounds.resourceManager = resourceManager;
   }
   
