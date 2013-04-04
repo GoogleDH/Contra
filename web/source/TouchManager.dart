@@ -4,7 +4,7 @@ class TouchManager {
   
   void initEventHandler() {
     if (Multitouch.supportsTouchEvents) {
-      print("Oh touch screen is supported.");
+//      print("Oh touch screen is supported.");
       Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
       var glass = new GlassPlate(Statics.BACKGROUND_WIDTH, Statics.BACKGROUND_HEIGHT);
       glass.addTo(stage);
@@ -21,7 +21,7 @@ class TouchManager {
   }
   
   void onTouchBegin(TouchEvent touchEvent) {
-    print("touch begin ${touchEvent.stageX} ${touchEvent.stageY}");
+//    print("touch begin ${touchEvent.stageX} ${touchEvent.stageY}");
     
     for (Bird bird in Game.birdManager.getAllBirds()) {
       if (isTouched(touchEvent, bird)) {

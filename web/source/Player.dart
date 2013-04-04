@@ -170,7 +170,7 @@ class Player extends Object implements Animatable {
       }
       if(collision == 0)
         break;
-      print("Backward");
+//      print("Backward");
     }
     
     for (Robot robot in Game.robotManager.getAllRobots()) {

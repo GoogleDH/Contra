@@ -125,9 +125,6 @@ class Bird extends Object implements Animatable {
       if (x < 0) {
         x = 0.0;
       }
-      if (x > Game.worldMap.width - this.width) {
-        x = Game.worldMap.width - this.width;
-      }
     }
 
     current.getBitmap().x = x - Game.displayWindow.x;

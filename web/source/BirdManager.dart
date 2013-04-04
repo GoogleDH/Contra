@@ -30,6 +30,9 @@ class BirdManager implements Animatable {
           layer.removeChild(bird);
           bird.destroy();
         });
+      } else if (bird.x > Game.worldMap.width) {
+        birdsToRemove.add(bird);
+        bird.destroy();
       }
     }
     birds.removeAll(birdsToRemove);

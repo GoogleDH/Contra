@@ -74,9 +74,9 @@ class Game extends Sprite {
     juggler.add(player);
     juggler.add(keyboardHandler);
    
-    print("start sound");
+//    print("start sound");
     Sounds.playBackground();
-    print("end sound");
+//    print("end sound");
     touchManager.initEventHandler();
   }
 
