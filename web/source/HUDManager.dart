@@ -66,8 +66,8 @@ class HUDManager {
   
   showEnd(bool win){
     TextField t = new TextField();
-    t.x = 240;
-    t.y = 400;
+    t.x = 440;
+    t.y = 200;
     t.width = 700;
     if (win) {
       t.defaultTextFormat = new TextFormat('Helvetica,Arial', 80, Color.Chocolate);
