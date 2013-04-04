@@ -64,13 +64,19 @@ class HUDManager {
     }
   }
   
-  showEnd(){
+  showEnd(bool win){
     TextField t = new TextField();
     t.x = 240;
     t.y = 400;
     t.width = 700;
-    t.defaultTextFormat = new TextFormat('Helvetica,Arial', 80, Color.Chocolate);
-    t.text = "YOU WIN!";
+    if (win) {
+      t.defaultTextFormat = new TextFormat('Helvetica,Arial', 80, Color.Chocolate);
+      t.text = "YOU WIN!";
+    } else {
+      t.defaultTextFormat = new TextFormat('Helvetica,Arial', 80, Color.Red);
+      t.text = "GAME OVER!";
+    }
+    
     layer.addChild(t);  
   }
   
