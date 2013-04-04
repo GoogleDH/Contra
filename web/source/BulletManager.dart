@@ -43,10 +43,10 @@ class BulletManager implements Animatable {
     var ratio = 100 / math.sqrt(speedX * speedX + speedY * speedY);
     speedX = speedX * ratio * -1;
     speedY = speedY * ratio;
-    var direction = robot.speedX >= 0 ? 1 : -1; // TODO
+    var direction = robot.direction;
     Bullet bullet = new Bullet.gun(
-        /* x */direction == 1 ? robot.x + robot.width : robot.x,
-        /* y */robot.y + robot.height / 3.0,
+        /* x */direction == 1 ? robot.x + robot.width + 15: robot.x - 5,
+        /* y */robot.y + robot.height * 0.2,
         /* speedX */speedX,
         /* speedY */speedY,
         /* accelerationX*/0.0 * direction,
