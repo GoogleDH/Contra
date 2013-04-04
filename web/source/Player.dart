@@ -154,7 +154,8 @@ class Player extends Object implements Animatable {
     } 
     var deltaX = x - oldX;
     var deltaY = y - oldY;
-    while(true) {
+    int attempt = 3;
+    while(attempt -- >= 0) {
       
       int collision = Collision.isCollidedWithTerrain(this, oldX, oldY);
       if(collision == 1 || collision == 3){
