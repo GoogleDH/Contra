@@ -160,7 +160,7 @@ class Bullet extends Object implements Animatable {
     }
     if (hostile) {
       if (this.collision(Game.player) > 0) {
-        Game.player.hurt();
+        Game.player.hurt(10);
         this.dead = true;
       }
     } else {

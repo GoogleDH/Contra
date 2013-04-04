@@ -175,7 +175,7 @@ class Player extends Object implements Animatable {
     
     for (Robot robot in Game.robotManager.getAllRobots()) {
       if (this.collision(robot) > 0) {
-        hurt();
+        hurt(1);
         break;
       }
     }
@@ -294,11 +294,11 @@ class Player extends Object implements Animatable {
     Game.bulletManager.playerBombed(this);
   }
   
-  hurt() {
+  hurt(int v) {
     if (isDead) {
       return;
     }
-    hp--;
+    hp-=v;
     if (hp <= 0) {
       setDead();
     }
