@@ -10,6 +10,8 @@ class Robot extends Object implements Animatable {
   Animation right_bleed;
   Animation left_fire;
   Animation right_fire;
+  Animation left_hurt;
+  Animation right_hurt;
   
   Animation current;
   
@@ -27,6 +29,8 @@ class Robot extends Object implements Animatable {
     right_bleed = new Animation(this);
     left_fire = new Animation(this);
     right_fire = new Animation(this);
+    left_hurt = new Animation(this);
+    right_hurt = new Animation(this);
     
     left_run.addFrame(new AnimationFrame("robot_leftmove1", 0.2));
     left_run.addFrame(new AnimationFrame("robot_leftmove2", 0.2));
@@ -49,6 +53,9 @@ class Robot extends Object implements Animatable {
     left_fire.addFrame(new AnimationFrame("robot_leftstand", 0.5));
     right_fire.addFrame(new AnimationFrame("robot_rightstand", 0.5));
     
+    left_hurt.addFrame(new AnimationFrame("robot_leftblood1", 0.1));
+    right_hurt.addFrame(new AnimationFrame("robot_rightblood1", 0.1));
+    
     var animations = [left_run, right_run];
     
     for (var x in animations) {
@@ -59,7 +66,6 @@ class Robot extends Object implements Animatable {
     }
     
     
-    
     this
       ..x = x
       ..y = y
@@ -68,6 +74,7 @@ class Robot extends Object implements Animatable {
       ..direction = 1;
     setCurrentAnimation(right_run);
     juggler.add(this);
+    
   }
   
   hurt(){
@@ -76,6 +83,13 @@ class Robot extends Object implements Animatable {
       setDead();
     } else {
       Sounds.playSoundEffect("robot_dead");
+      
+      var oldAnimation = current;
+      var newAnimation = direction == 1 ? right_hurt : left_hurt;
+      setCurrentAnimationWithCb(newAnimation, () {
+        setCurrentAnimation(oldAnimation);
+      });
+      
     }
   }
   
