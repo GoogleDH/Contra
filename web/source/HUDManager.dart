@@ -50,6 +50,9 @@ class HUDManager {
   
   void updateBloodStrip(Player player) {
     double scale = player.hp / Player.FULL_HP;
+    if (scale < 0) {
+      scale = 0.0;
+    }
     blood_real.scaleX = scale;
    // leftBlood.text = player.hp.toString();
   }
