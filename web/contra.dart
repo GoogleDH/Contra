@@ -32,7 +32,10 @@ Stage stage;
 Juggler juggler;
 
 void main() {
-  stage = new Stage("oneStage", html.query("#oneStage"));
+  var canvas = html.query("#oneStage");
+  
+  
+  stage = new Stage("oneStage", canvas);
   RenderLoop renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
   juggler = renderLoop.juggler;

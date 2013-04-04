@@ -26,7 +26,7 @@ class WorldMap extends Object implements Animatable {
     addChild(skyBitmap2);
 
     // background tiles
-    for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 2; i++) {
+    for (int i = 0; i < Statics.BACKGROUND_WIDTH / Statics.TILE_SIZE + 20; i++) {
       Bitmap tileDirt = new Bitmap(Grafix.resourceManager.
                                    getBitmapData("tiledirt"));
       tileDirt.x = i * Statics.TILE_SIZE;
