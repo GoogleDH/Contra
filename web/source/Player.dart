@@ -294,6 +294,9 @@ class Player extends Object implements Animatable {
   }
   
   hurt() {
+    if (isDead) {
+      return;
+    }
     hp--;
     if (hp <= 0) {
       setDead();

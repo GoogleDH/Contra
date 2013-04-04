@@ -13,7 +13,7 @@ class BirdManager implements Animatable {
   }
 
   bool advanceTime(num time) {
-    if(random.nextDouble() > 0.995) {
+    if(random.nextDouble() > 0.990) {
       print("create one bird.");
       createNewBird(300.0, 20.0);
     }

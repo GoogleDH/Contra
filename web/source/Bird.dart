@@ -62,7 +62,7 @@ class Bird extends Object implements Animatable {
     this
       ..x = x
       ..y = y
-      ..speedX = 50.0
+      ..speedX = 100.0
       ..speedY = 0.0;
     setCurrentAnimation(right_run);
     juggler.add(this);
