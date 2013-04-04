@@ -32,5 +32,6 @@ class Statics {
   static const int DIRECTION_RIGHT = 1;
 
   static const int MIN_FIRE_INTERVAL = 200;
+  static const double HELICOPTER_SPEED_X = 200.0;
 }
 

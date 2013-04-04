@@ -5,8 +5,10 @@ class HUDManager {
   
   TextField tf;
   TextField scoreField;
-  TextField blood;
-  TextField leftBlood;
+  
+  Bitmap blood_background;
+  Bitmap blood_real;
+  
   Sprite layer;
   int score = 0;
   int bloodLeft = 300;
@@ -27,20 +29,13 @@ class HUDManager {
     scoreField.text = score.toString();
     print("in HudManager");
     
-    leftBlood = new TextField();
-    leftBlood.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Red);
-    leftBlood.x = 400;
-    leftBlood.y = 10;
-    leftBlood.text = Player.FULL_HP.toString();
-    layer.addChild(leftBlood);
- 
-    blood = new TextField();
-    blood.defaultTextFormat = new TextFormat('Helvetica,Arial', 16, Color.Green);
-    blood.x = 430;
-    blood.y = 10;
-    blood.text = "/" + Player.FULL_HP.toString();
-    layer.addChild(blood);
-    
+    // HP 
+    blood_background = new Bitmap(new BitmapData(300, 15, false, Color.Red));
+    blood_real = new Bitmap(new BitmapData(300, 15, false, Color.Green));
+    blood_background.x = blood_real.x = 340;
+    blood_background.y = blood_real.y = 10;
+    layer.addChild(blood_background);
+    layer.addChild(blood_real);
   }
   
   void oneBirdKilled() {
@@ -54,7 +49,9 @@ class HUDManager {
   }
   
   void updateBloodStrip(Player player) {
-    leftBlood.text = player.hp.toString();
+    double scale = player.hp / Player.FULL_HP;
+    blood_real.scaleX = scale;
+   // leftBlood.text = player.hp.toString();
   }
   
   setBombStatus(bool charging){
@@ -69,13 +66,12 @@ class HUDManager {
   
   showEnd(){
     TextField t = new TextField();
-    t.x = 200;
-    t.y = 200;
+    t.x = 240;
+    t.y = 400;
     t.width = 700;
     t.defaultTextFormat = new TextFormat('Helvetica,Arial', 80, Color.Chocolate);
     t.text = "YOU WIN!";
-    layer.addChild(t);
-    
+    layer.addChild(t);  
   }
   
 }
