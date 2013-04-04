@@ -56,6 +56,7 @@ class WorldMap extends Object implements Animatable {
       Map parsedMap = parse(mapAsJson);
       print(parsedMap["terrain"]["width"]);
       terrain = parsedMap['terrain'];
+      this.width = terrain['width']  * 40.0;
       for(int i = 0 ; i < terrain['width'] ; i++){
         for(int j = 0 ; j < terrain['height'] ; j++){
           String c = terrain['tiles'][j][i];

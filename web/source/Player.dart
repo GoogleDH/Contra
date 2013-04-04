@@ -189,6 +189,7 @@ class Player extends Object implements Animatable {
     //check if we reached destination point
     if(Collision.reachedEnd(this)){
       Game.hudManager.showEnd(true);
+      juggler.purge();
     }
     
   }
