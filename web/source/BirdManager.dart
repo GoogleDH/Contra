@@ -6,7 +6,7 @@ class BirdManager implements Animatable {
   Sprite layer;
   DateTime lastCreateTimestamp;
   math.Random random = new math.Random(new DateTime.now().millisecondsSinceEpoch);
-
+  
   BirdManager(Sprite layer) {
     this.layer = layer;
     birds = new List<Bird>();
@@ -15,7 +15,9 @@ class BirdManager implements Animatable {
   bool advanceTime(num time) {
     if(random.nextDouble() > 0.990) {
       print("create one bird.");
-      createNewBird(300.0, 40.0);
+      double x = (Game.displayWindow.x - 50.0 < 0)? 0.0 : Game.displayWindow.x - 50.0;
+      double y = 40.0;
+      createNewBird(x, y);
     }
     destroyDeadRobot();
   }
