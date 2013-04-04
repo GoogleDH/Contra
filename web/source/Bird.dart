@@ -62,7 +62,7 @@ class Bird extends Object implements Animatable {
     this
       ..x = x
       ..y = y
-      ..speedX = 50.0
+      ..speedX = Statics.HELICOPTER_SPEED_X
       ..speedY = 0.0;
     setCurrentAnimation(right_run);
     juggler.add(this);
@@ -148,12 +148,12 @@ class Bird extends Object implements Animatable {
   checkIfNeedFire(){
     var now = new DateTime.now();
     if (lastFireTimestamp != null
-        && now.millisecondsSinceEpoch - lastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*5) {
+        && now.millisecondsSinceEpoch - lastFireTimestamp.millisecondsSinceEpoch < Statics.MIN_FIRE_INTERVAL*2) {
       return;
     }
     lastFireTimestamp = now;
 
-    if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.5) {
+    if(((this.x - Game.player.x > -50 && this.x - Game.player.x < 400)) && random.nextDouble() > 0.6) { 
       Game.bulletManager.birdFire(this);
       Sounds.playSoundEffect("robot_fire");
     }

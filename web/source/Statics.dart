@@ -14,7 +14,7 @@ class Statics {
 
   static const double TILE_SIZE = 40.0;
   static const double WORLD_HEIGHT = 480.0;
-  static const double BACKGROUND_WIDTH = 1280.0;
+  static double BACKGROUND_WIDTH = 1280.0;
   static const double BACKGROUND_HEIGHT = 480.0;
   static const double SPEED_X = 280.0;
   static const double SPEED_X_ACCELERATE = 3.0;
@@ -32,5 +32,6 @@ class Statics {
   static const int DIRECTION_RIGHT = 1;
 
   static const int MIN_FIRE_INTERVAL = 200;
+  static const double HELICOPTER_SPEED_X = 120.0;
 }
 

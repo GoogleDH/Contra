@@ -87,15 +87,15 @@ class Bullet extends Object implements Animatable {
       this.speedY -= 500.0;
       if (this.speedX < 0) {
         var theta = math.atan(this.speedY / this.speedX);
-        this.y -= this.width * math.sin(theta);
-        var l = this.width * math.tan(theta);
+        this.y -= bitmap.width * math.sin(theta);
+        var l = bitmap.width * math.tan(theta);
         this.x += l * math.sin(theta) / 2;
       }
     }
     if(!hostile && Game.keyboardHandler.isPressingDownKey()) {
       this.speedY += 300.0;
       if (this.speedX < 0) {
-        this.y -= this.width * math.sin(math.atan(this.speedY / this.speedX));
+        this.y -= bitmap.width * math.sin(math.atan(this.speedY / this.speedX));
       }
     }
 
@@ -112,10 +112,18 @@ class Bullet extends Object implements Animatable {
   }
 
   num get width{
-    return bitmap.width;
+    if(type == 1 && !hostile){
+      return 10;
+    } else {
+      return bitmap.width;
+    }
   }
   num get height{
-    return bitmap.height;
+    if(type == 1 && !hostile){
+      return 10;
+    } else {
+      return bitmap.height;
+    }
   }
   
   bool advanceTime(num time) {

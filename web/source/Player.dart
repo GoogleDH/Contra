@@ -188,7 +188,7 @@ class Player extends Object implements Animatable {
     
     //check if we reached destination point
     if(Collision.reachedEnd(this)){
-      Game.hudManager.showEnd();
+      Game.hudManager.showEnd(true);
     }
     
   }
@@ -294,6 +294,9 @@ class Player extends Object implements Animatable {
   }
   
   hurt() {
+    if (isDead) {
+      return;
+    }
     hp--;
     if (hp <= 0) {
       setDead();
@@ -302,6 +305,7 @@ class Player extends Object implements Animatable {
   }
 
   setDead() {
+    Game.hudManager.showEnd(false);
     state = Statics.PLAYER_STATE_DEAD;
     if (direction == Statics.DIRECTION_LEFT) {
       setCurrentAnimation(left_die);
