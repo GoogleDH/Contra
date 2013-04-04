@@ -89,9 +89,9 @@ class WorldMap extends Object implements Animatable {
   addBird(int i, int j) {
     try{
       print("try to add bird");
-      Game.birdManager.createNewBird(i * 40.0, j * 40.0, 0);
+      Game.birdManager.createNewBird(i * 40.0, j * 40.0);
     }catch(e){
-      print("Error in create robot $e");
+      print("Error in create robot" + e.toString());
     }
   }
   

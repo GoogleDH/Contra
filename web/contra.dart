@@ -32,7 +32,6 @@ Stage stage;
 Juggler juggler;
 
 void main() {
-  try{
   stage = new Stage("oneStage", html.query("#oneStage"));
   RenderLoop renderLoop = new RenderLoop();
   renderLoop.addStage(stage);
@@ -52,8 +51,5 @@ void main() {
       print("Loading resource ${resource.kind} ${resource.name} failed: ${resource.error}");
     }
   });
-  }catch(e){
-    print("ERROR: " + e.toString()); 
-  }
   
 }
