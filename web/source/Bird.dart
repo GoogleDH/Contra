@@ -153,7 +153,7 @@ class Bird extends Object implements Animatable {
     }
     lastFireTimestamp = now;
 
-    if(((this.x - Game.player.x > -50 && this.x - Game.player.x < 400)) && random.nextDouble() > 0.3) { 
+    if(((this.x - Game.player.x > -50 && this.x - Game.player.x < 400)) && random.nextDouble() > 0.8) { 
       Game.bulletManager.birdFire(this);
       Sounds.playSoundEffect("robot_fire");
     }
