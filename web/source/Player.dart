@@ -152,16 +152,25 @@ class Player extends Object implements Animatable {
         // do nothing?
       }
     } 
-    
-    int collision = Collision.isCollidedWithTerrain(this, oldX, oldY);
-    if(collision == 1 || collision == 3){
-      //collided on x, reset x
-      x = oldX;
-    }
-    if(collision >= 2){
-      // prevent from going into wall, in x and y direction
-      speedY = 0.0;
-      y = oldY;
+    var deltaX = x - oldX;
+    var deltaY = y - oldY;
+    while(true) {
+      
+      int collision = Collision.isCollidedWithTerrain(this, oldX, oldY);
+      if(collision == 1 || collision == 3){
+        //collided on x, reset x
+        x -= deltaX;
+        oldX -= deltaX;
+      }
+      if(collision >= 2){
+        // prevent from going into wall, in x and y direction
+        speedY = 0.0;
+        y -= deltaY;
+        oldY -= deltaY;
+      }
+      if(collision == 0)
+        break;
+      print("Backward");
     }
     
     for (Robot robot in Game.robotManager.getAllRobots()) {

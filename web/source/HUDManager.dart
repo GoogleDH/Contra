@@ -68,11 +68,11 @@ class HUDManager {
   }
   
   showEnd(){
-    print("YOU WIN!");
     TextField t = new TextField();
     t.x = 200;
     t.y = 200;
-    t.textColor = Color.White;
+    t.width = 700;
+    t.defaultTextFormat = new TextFormat('Helvetica,Arial', 80, Color.Chocolate);
     t.text = "YOU WIN!";
     layer.addChild(t);
     
