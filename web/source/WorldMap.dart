@@ -77,10 +77,22 @@ class WorldMap extends Object implements Animatable {
             case '4':
               addDestinationTile(i, j);
               break;
+            case '5':
+              addBird(i, j);
+              break;
           }
         }
       }
     });
+  }
+  
+  addBird(int i, int j) {
+    try{
+      print("try to add bird");
+      Game.birdManager.createNewBird(i * 40.0, j * 40.0, 0);
+    }catch(e){
+      print("Error in create robot $e");
+    }
   }
   
   addDestinationTile(int i, int j) {
