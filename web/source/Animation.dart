@@ -43,15 +43,14 @@ class Animation {
       return;
     }
 
+    var shouldCallCb = false;
     if (duration >= frame.duration) {
       var x = frames[currentIndex].bitmap.x;
       var y = frames[currentIndex].bitmap.y;
       stop();
       if (currentIndex + 1 == frames.length) {
         currentIndex = 0;
-        if (cb != null) {
-          cb();
-        }
+        shouldCallCb = true;
       } else {
         currentIndex = currentIndex + 1;
       }
@@ -60,6 +59,16 @@ class Animation {
 
       obj.addChild(frames[currentIndex].bitmap);
       duration = duration - frame.duration;
+    }
+    
+    if (shouldCallCb) {
+      if (cb != null) {
+        // yes it's necessary
+        // cb() might update this.cb
+        var c = cb;
+        cb = null;
+        c();
+      }
     }
   }
 

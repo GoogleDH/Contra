@@ -8,6 +8,8 @@ class Robot extends Object implements Animatable {
   Animation right_run;
   Animation left_bleed;
   Animation right_bleed;
+  Animation left_fire;
+  Animation right_fire;
   
   Animation current;
   
@@ -23,6 +25,8 @@ class Robot extends Object implements Animatable {
     right_run = new Animation(this);
     left_bleed = new Animation(this);
     right_bleed = new Animation(this);
+    left_fire = new Animation(this);
+    right_fire = new Animation(this);
     
     left_run.addFrame(new AnimationFrame("robot_leftmove1", 0.2));
     left_run.addFrame(new AnimationFrame("robot_leftmove2", 0.2));
@@ -42,6 +46,9 @@ class Robot extends Object implements Animatable {
     right_bleed.addFrame(new AnimationFrame("robot_rightblood2", 0.1));
     right_bleed.addFrame(new AnimationFrame("robot_rightblood3", 0.1));
     
+    left_fire.addFrame(new AnimationFrame("robot_leftstand", 0.5));
+    right_fire.addFrame(new AnimationFrame("robot_rightstand", 0.5));
+    
     var animations = [left_run, right_run];
     
     for (var x in animations) {
@@ -57,7 +64,8 @@ class Robot extends Object implements Animatable {
       ..x = x
       ..y = y
       ..speedX = 50.0
-      ..speedY = 0.0;
+      ..speedY = 0.0
+      ..direction = 1;
     setCurrentAnimation(right_run);
     juggler.add(this);
   }
@@ -75,16 +83,23 @@ class Robot extends Object implements Animatable {
     if(direction == 0){
       // go right
       speedX = 50.0;
+      this.direction = 1;
       setCurrentAnimation(right_run);
     } else {
       // go left
       speedX = -50.0;
+      this.direction = -1;
       setCurrentAnimation(left_run);
     }
   }
   
   double get height => max_height;
   double get width => max_width;
+  
+  void setCurrentAnimationWithCb(Animation animation, void cb()) {
+    animation.setCbOnFinish(cb);
+    setCurrentAnimation(animation);
+  }
   
   void setCurrentAnimation(Animation animation) {
     if (current == animation) {
@@ -129,8 +144,21 @@ class Robot extends Object implements Animatable {
     lastFireTimestamp = now;
 
     if(((this.x - Game.player.x > 0 && this.x - Game.player.x < 400 && speedX < 0) || (this.x - Game.player.x < 0 && this.x - Game.player.x > -400 && speedX > 0)) && random.nextDouble() > 0.5) {
-      Game.bulletManager.robotFired(this);
-      Sounds.playSoundEffect("robot_fire");
+      // stop and hold the gun
+      var oldSpeedX = speedX;
+      speedX = 0.0;
+      
+      setCurrentAnimationWithCb(oldSpeedX >= 0 ? right_fire : left_fire, () {
+        // fire and hold the gun
+        Game.bulletManager.robotFired(this);
+        Sounds.playSoundEffect("robot_fire");
+        
+        setCurrentAnimationWithCb(oldSpeedX >= 0 ? right_fire : left_fire, () {
+          // now continue moving
+          setCurrentAnimation(oldSpeedX >= 0 ? right_run : left_run);
+          speedX = oldSpeedX;
+        });
+      });
     }
   }
   
@@ -186,6 +214,7 @@ class Robot extends Object implements Animatable {
       //collided on x, reset x
       x = oldX;
       speedX = -speedX;
+      this.direction = -this.direction;
       if (speedX > 0) {
         setCurrentAnimation(right_run);
       } else {
