@@ -85,10 +85,12 @@ class Robot extends Object implements Animatable {
       Sounds.playSoundEffect("robot_dead");
       
       var oldAnimation = current;
+      if (!(oldAnimation == right_hurt || oldAnimation == left_hurt)) {
       var newAnimation = direction == 1 ? right_hurt : left_hurt;
       setCurrentAnimationWithCb(newAnimation, () {
         setCurrentAnimation(oldAnimation);
       });
+      }
       
     }
   }
